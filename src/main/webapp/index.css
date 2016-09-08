@@ -1,0 +1,66 @@
+#carousel img {
+    width: 100%;
+}
+
+p {
+    font-size: 14px;
+    line-height: 1.618em;
+}
+
+.card {
+    background-color: #FFFFFF;
+    padding: 10px 0 20px;
+    width: 100%;
+}
+
+.card h3 {
+    margin-bottom: 20px;
+}
+
+.card button {
+    margin-top: 30px;
+}
+
+.sharing-title {
+    margin: 10px;
+    line-height: 40px;
+}
+
+.social-line {
+    padding: 5px 0;
+}
+
+.show-inline-li>li{
+    padding-left: 70px;
+}
+
+.show-client-info-title{
+    font-size: 30px;
+    font-weight: 600;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.show-client-info-second-title{
+    font-size: 25px;
+    padding-bottom: 30px;
+}
+.show-client-info-ico{
+    padding-top: 50px;
+}
+.show-client-info-ico li{
+    padding-top: 10px;
+}
+
+.card .simple-ico{
+    /**
+    border-radius: 50%;
+    **/
+    display: block;
+    height: 178px;
+    margin: 30px auto 0;
+    overflow: hidden;
+    width: 178px;
+}
+h3{
+    font-weight: 600;
+}

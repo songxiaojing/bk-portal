@@ -1,0 +1,21 @@
+#navbar-full .navbar {
+    border-radius: 0 !important;
+    margin-bottom: 0;
+    z-index: 2;
+}
+
+#bs-example-navbar-collapse-1 .active >a {
+    color: #ff9500;
+}
+
+.navbar.navbar-ct-blue{
+    background-color: rgba(46, 44, 62, 0.6);
+}
+
+.btn-openAccount{
+    background-color: #FCC900;
+    border-color: #FCC900;
+    color: #2E2C3E;
+    font-weight: 600;
+    font-size: 18px;
+}

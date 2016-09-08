@@ -1,0 +1,41 @@
+/**
+*
+*/
+p {
+    font-size: 14px;
+    line-height: 1.618em;
+}
+
+.space {
+    height: 60px;
+    display: block;
+}
+
+.space-100 {
+    height: 100px;
+    display: block;
+    width: 100%;
+}
+
+.space-30 {
+    height: 30px;
+    display: block;
+}
+
+.section-gray {
+    padding: 10px 0;
+    background-color: #EEE;
+}
+
+.section-gray h5 {
+    margin: 0;
+    line-height: 40px;
+}
+
+.txt-white {
+    color: #FFFFFF;
+}
+
+.txt-gray {
+    color: #ddd !important;
+}
