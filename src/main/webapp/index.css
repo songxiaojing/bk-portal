@@ -41,7 +41,8 @@ p {
 }
 
 .carousel-news-images > .item > img {
-
+    height: 300px;
+    width: 550px;
 }
 
 .portal-news > li {
@@ -59,4 +60,7 @@ p {
 
 h3 {
     font-weight: 600;
+}
+.footer-a a{
+    color: #0f0f0f;
 }
