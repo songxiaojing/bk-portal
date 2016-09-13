@@ -4,17 +4,38 @@
     z-index: 2;
 }
 
-#bs-example-navbar-collapse-1 .active >a {
+#bs-example-navbar-collapse-1 .active > a {
     color: #ff9500;
+    text-decoration: underline;
 }
-.navbar.navbar-ct-blue{
+
+.navbar.navbar-ct-blue {
     background-color: rgba(23, 37, 79, 0.6);
 }
 
-.btn-openAccount{
+.btn-openAccount {
     background-color: #FCC900;
     border-color: #FCC900;
     color: #2E2C3E;
     font-weight: 600;
     font-size: 18px;
+}
+
+.banner-title {
+    font-size: 33px;
+    color: #FFFFFF;
+    align-items: center;
+    justify-content: center;
+    display: flex
+}
+
+.banner-title > img {
+    height: 60px;
+}
+
+.navbar-nav > li > a {
+    font-size: 18px;
+    line-height: 1.518em;
+    font-weight: 300;
+    font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu
 }

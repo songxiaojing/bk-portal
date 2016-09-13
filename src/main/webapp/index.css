@@ -2,11 +2,6 @@
     width: 100%;
 }
 
-p {
-    font-size: 14px;
-    line-height: 1.618em;
-}
-
 .sharing-title {
     margin: 10px;
     line-height: 40px;
@@ -60,7 +55,4 @@ p {
 
 h3 {
     font-weight: 600;
-}
-.footer-a a{
-    color: #0f0f0f;
 }
