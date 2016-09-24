@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mpe.portal.web.resources.daos.MetricWebVisitRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.mpe.portal.web.resources.modules.MetricWebVisitRecord" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="VISIT_TARGET" property="visitTarget" jdbcType="VARCHAR" />
+    <result column="VISIT_REFERENT" property="visitReferent" jdbcType="VARCHAR" />
+    <result column="REMOTE_IP" property="remoteIp" jdbcType="VARCHAR" />
+    <result column="USER_AGENT" property="userAgent" jdbcType="VARCHAR" />
+    <result column="VISIT_AT" property="visitAt" jdbcType="TIMESTAMP" />
+    <result column="CREATE_AT" property="createAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mpe.portal.web.resources.modules.MetricWebVisitRecord" extends="BaseResultMap" >
+    <result column="HTTP_HEAD" property="httpHead" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, VISIT_TARGET, VISIT_REFERENT, REMOTE_IP, USER_AGENT, VISIT_AT, CREATE_AT
+  </sql>
+  <sql id="Blob_Column_List" >
+    HTTP_HEAD
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from METRIC_WEB_VISIT_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from METRIC_WEB_VISIT_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mpe.portal.web.resources.modules.MetricWebVisitRecord" >
+    insert into METRIC_WEB_VISIT_RECORD (ID, VISIT_TARGET, VISIT_REFERENT, 
+      REMOTE_IP, USER_AGENT, VISIT_AT, 
+      CREATE_AT, HTTP_HEAD)
+    values (#{id,jdbcType=BIGINT}, #{visitTarget,jdbcType=VARCHAR}, #{visitReferent,jdbcType=VARCHAR}, 
+      #{remoteIp,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, #{visitAt,jdbcType=TIMESTAMP}, 
+      #{createAt,jdbcType=TIMESTAMP}, #{httpHead,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpe.portal.web.resources.modules.MetricWebVisitRecord" >
+    insert into METRIC_WEB_VISIT_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="visitTarget != null" >
+        VISIT_TARGET,
+      </if>
+      <if test="visitReferent != null" >
+        VISIT_REFERENT,
+      </if>
+      <if test="remoteIp != null" >
+        REMOTE_IP,
+      </if>
+      <if test="userAgent != null" >
+        USER_AGENT,
+      </if>
+      <if test="visitAt != null" >
+        VISIT_AT,
+      </if>
+      <if test="createAt != null" >
+        CREATE_AT,
+      </if>
+      <if test="httpHead != null" >
+        HTTP_HEAD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="visitTarget != null" >
+        #{visitTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="visitReferent != null" >
+        #{visitReferent,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteIp != null" >
+        #{remoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null" >
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="visitAt != null" >
+        #{visitAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createAt != null" >
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpHead != null" >
+        #{httpHead,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mpe.portal.web.resources.modules.MetricWebVisitRecord" >
+    update METRIC_WEB_VISIT_RECORD
+    <set >
+      <if test="visitTarget != null" >
+        VISIT_TARGET = #{visitTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="visitReferent != null" >
+        VISIT_REFERENT = #{visitReferent,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteIp != null" >
+        REMOTE_IP = #{remoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null" >
+        USER_AGENT = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="visitAt != null" >
+        VISIT_AT = #{visitAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createAt != null" >
+        CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpHead != null" >
+        HTTP_HEAD = #{httpHead,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mpe.portal.web.resources.modules.MetricWebVisitRecord" >
+    update METRIC_WEB_VISIT_RECORD
+    set VISIT_TARGET = #{visitTarget,jdbcType=VARCHAR},
+      VISIT_REFERENT = #{visitReferent,jdbcType=VARCHAR},
+      REMOTE_IP = #{remoteIp,jdbcType=VARCHAR},
+      USER_AGENT = #{userAgent,jdbcType=VARCHAR},
+      VISIT_AT = #{visitAt,jdbcType=TIMESTAMP},
+      CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
+      HTTP_HEAD = #{httpHead,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mpe.portal.web.resources.modules.MetricWebVisitRecord" >
+    update METRIC_WEB_VISIT_RECORD
+    set VISIT_TARGET = #{visitTarget,jdbcType=VARCHAR},
+      VISIT_REFERENT = #{visitReferent,jdbcType=VARCHAR},
+      REMOTE_IP = #{remoteIp,jdbcType=VARCHAR},
+      USER_AGENT = #{userAgent,jdbcType=VARCHAR},
+      VISIT_AT = #{visitAt,jdbcType=TIMESTAMP},
+      CREATE_AT = #{createAt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

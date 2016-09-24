@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.devMode" value="false"/>
+    <constant name="struts.xslt.nocache" value="true"/>
+    <constant name="struts.action.excludePattern" value="/*/*.html,/ajax/test/.*"/>
+    <constant name="struts.action.extension" value="action"/>
+    <constant name="struts.multipart.maxSize" value="15485760"/>
+    <constant name="struts.multipart.saveDir" value="../temp/upload"/>
+    <constant name="struts.objectFactory" value="spring"/>
+
+
+    <!-- demo
+    <package name="packageName" namespace="/AccessPrefixInURL" extends="struts-default,json-default">
+        #set all action global results in current package
+        <global-results>
+            #start with webRoot/
+            <result name="error">/WEB-INF/jsp/common/exception.jsp</result>
+            <result name="lossUser">/login.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            # handler for exception
+            <exception-mapping exception="java.lang.Exception" result="error" />
+        </global-exception-mappings>
+        <action name="AccessActionNameInURL.*" class="ActionBeanNameInSpring" method="{1}">
+            <result name="online">/index.html</result>
+        </action>
+    </package>
+    -->
+    <!--
+    <package name="app-base" namespace="/" extends="struts-default,json-default">
+        <global-results>
+            <result name="message">/message.jsp</result>
+            <result name="error">/message.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
+    </package> -->
+    <!-- App Module files -->
+
+    <!-- 系统中application 定义 -->
+    <package name="application" namespace="/application" extends="struts-default,json-default">
+        <global-results>
+            <result name="message">/WEB-INF/jsp/common/message.jsp</result>
+            <result name="error">/WEB-INF/jsp/common/error.jsp</result>
+            <result name="exception">/WEB-INF/jsp/common/exception.jsp</result>
+            <result name="sigin" type="redirect">/sigin.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+        <!-- 网站用户登录模块 -->
+        <action name="login" class="LoginController" method="login">
+            <result name="loginView">/sigin.jsp</result>
+            <result name="centerView" type="redirect">/center/dashboard.dashboardView.action</result>
+            <result name="openStepA" type="redirect">/account/openStepA.stepFormView.action</result>
+            <result name="openStepB" type="redirect">/account/openStepB.stepFormView.action</result>
+            <result name="openStepC" type="redirect">/account/openStepC.stepFormView.action</result>
+            <result name="openStepD" type="redirect">/account/openStepD.stepFormView.action</result>
+            <result name="openStepE" type="redirect">/account/openStepE.stepFormView.action</result>
+        </action>
+        <!-- 网站用户登出模块 -->
+        <action name="logout" class="LogoutController" method="logout">
+            <result name="loginView" type="redirect">/sigin.jsp</result>
+        </action>
+        <!-- 短信发送模块 -->
+        <action name="sms.*" class="SMSController" method="{1}">
+        </action>
+    </package>
+    <package name="dim" namespace="/dim" extends="struts-default,json-default">
+        <global-results>
+            <result name="message">/WEB-INF/jsp/common/message.jsp</result>
+            <result name="error">/WEB-INF/jsp/common/error.jsp</result>
+            <result name="exception">/WEB-INF/jsp/common/exception.jsp</result>
+            <result name="sigin" type="redirect">/sigin.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+        <!-- 维度数据 -->
+        <action name="dim.*" class="DimHatDataController" method="{1}">
+        </action>
+    </package>
+
+    <!-- 网站用户注册模块 -->
+    <package name="register" namespace="/register" extends="struts-default,json-default">
+        <global-results>
+            <result name="message">/WEB-INF/jsp/common/message.jsp</result>
+            <result name="error">/WEB-INF/jsp/common/error.jsp</result>
+            <result name="exception">/WEB-INF/jsp/common/exception.jsp</result>
+            <result name="sigin" type="redirect">/sigin.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+        <!-- 网站用户注册模块 -->
+        <action name="user.*" class="UserRegisterController" method="{1}">
+            <result name="userRegisterForm">/WEB-INF/jsp/register/userRegisterForm.jsp</result>
+            <result name="nextOpenStepView" type="redirect">/account/openStepA.stepFormView.action</result>
+        </action>
+    </package>
+</struts>

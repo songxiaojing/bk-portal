@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mpe.portal.web.resources.daos.MetricLoginRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.mpe.portal.web.resources.modules.MetricLoginRecord" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="REMOTE_IP" property="remoteIp" jdbcType="VARCHAR" />
+    <result column="LOGIN_AT" property="loginAt" jdbcType="TIMESTAMP" />
+    <result column="USER_AGENT" property="userAgent" jdbcType="VARCHAR" />
+    <result column="SESSION_ID" property="sessionId" jdbcType="VARCHAR" />
+    <result column="CREATE_AT" property="createAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mpe.portal.web.resources.modules.MetricLoginRecord" extends="BaseResultMap" >
+    <result column="HTTP_HEAD" property="httpHead" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_NAME, REMOTE_IP, LOGIN_AT, USER_AGENT, SESSION_ID, CREATE_AT
+  </sql>
+  <sql id="Blob_Column_List" >
+    HTTP_HEAD
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from METRIC_LOGIN_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from METRIC_LOGIN_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mpe.portal.web.resources.modules.MetricLoginRecord" >
+    insert into METRIC_LOGIN_RECORD (ID, USER_NAME, REMOTE_IP, 
+      LOGIN_AT, USER_AGENT, SESSION_ID, 
+      CREATE_AT, HTTP_HEAD)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{remoteIp,jdbcType=VARCHAR}, 
+      #{loginAt,jdbcType=TIMESTAMP}, #{userAgent,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, 
+      #{createAt,jdbcType=TIMESTAMP}, #{httpHead,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpe.portal.web.resources.modules.MetricLoginRecord" >
+    insert into METRIC_LOGIN_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="remoteIp != null" >
+        REMOTE_IP,
+      </if>
+      <if test="loginAt != null" >
+        LOGIN_AT,
+      </if>
+      <if test="userAgent != null" >
+        USER_AGENT,
+      </if>
+      <if test="sessionId != null" >
+        SESSION_ID,
+      </if>
+      <if test="createAt != null" >
+        CREATE_AT,
+      </if>
+      <if test="httpHead != null" >
+        HTTP_HEAD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteIp != null" >
+        #{remoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAt != null" >
+        #{loginAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAgent != null" >
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpHead != null" >
+        #{httpHead,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mpe.portal.web.resources.modules.MetricLoginRecord" >
+    update METRIC_LOGIN_RECORD
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteIp != null" >
+        REMOTE_IP = #{remoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAt != null" >
+        LOGIN_AT = #{loginAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAgent != null" >
+        USER_AGENT = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpHead != null" >
+        HTTP_HEAD = #{httpHead,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mpe.portal.web.resources.modules.MetricLoginRecord" >
+    update METRIC_LOGIN_RECORD
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      REMOTE_IP = #{remoteIp,jdbcType=VARCHAR},
+      LOGIN_AT = #{loginAt,jdbcType=TIMESTAMP},
+      USER_AGENT = #{userAgent,jdbcType=VARCHAR},
+      SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
+      HTTP_HEAD = #{httpHead,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mpe.portal.web.resources.modules.MetricLoginRecord" >
+    update METRIC_LOGIN_RECORD
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      REMOTE_IP = #{remoteIp,jdbcType=VARCHAR},
+      LOGIN_AT = #{loginAt,jdbcType=TIMESTAMP},
+      USER_AGENT = #{userAgent,jdbcType=VARCHAR},
+      SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      CREATE_AT = #{createAt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -3,7 +3,77 @@
          xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
-    <display-name>Archetype Created Web Application</display-name>
+    <!-- below listeners must keep the order-->
+    <!--#1 listeners for platform logging -->
+    <listener>
+        <listener-class>com.mpe.portal.web.listeners.AppLogListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>app.cfg.log.path</param-name>
+        <param-value>bk-center-cfg-logging.xml</param-value>
+    </context-param>
+    <!--#2 listeners for Session-->
+    <listener>
+        <listener-class>com.mpe.portal.web.listeners.AppSessionListener</listener-class>
+    </listener>
+    <!--#4 listeners for spring context -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring-context.xml</param-value>
+    </context-param>
+    <!-- encoding filters setting-->
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- Authentication filters -->
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.bellwin.brokers.center.web.filters.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- struts framework setting-->
+    <filter>
+        <filter-name>StrutsCleanUpFilter</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+        <init-param>
+            <param-name>actionPackages</param-name>
+            <param-value>com.bellwin.brokers.center.web.controllers</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>StrutsCleanUpFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
     <icon>
         <small-icon>/favicon.ico</small-icon>
         <large-icon>/favicon.ico</large-icon>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mpe.portal.web.resources.daos.ResNewsMapper" >
+  <resultMap id="BaseResultMap" type="com.mpe.portal.web.resources.modules.ResNews" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="STYLE" property="style" jdbcType="VARCHAR" />
+    <result column="NEW_TITLE" property="newTitle" jdbcType="VARCHAR" />
+    <result column="NEW_CATAGORY" property="newCatagory" jdbcType="VARCHAR" />
+    <result column="NEW_SOURCE" property="newSource" jdbcType="VARCHAR" />
+    <result column="PUBLISH_AT" property="publishAt" jdbcType="TIMESTAMP" />
+    <result column="PUBLISH_BY" property="publishBy" jdbcType="VARCHAR" />
+    <result column="CREATE_AT" property="createAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mpe.portal.web.resources.modules.ResNews" extends="BaseResultMap" >
+    <result column="NEW_BODY" property="newBody" jdbcType="LONGVARCHAR" />
+    <result column="NEW_PICTURE" property="newPicture" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TYPE, STYLE, NEW_TITLE, NEW_CATAGORY, NEW_SOURCE, PUBLISH_AT, PUBLISH_BY, CREATE_AT
+  </sql>
+  <sql id="Blob_Column_List" >
+    NEW_BODY, NEW_PICTURE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from RES_NEWS
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RES_NEWS
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mpe.portal.web.resources.modules.ResNews" >
+    insert into RES_NEWS (ID, TYPE, STYLE, 
+      NEW_TITLE, NEW_CATAGORY, NEW_SOURCE, 
+      PUBLISH_AT, PUBLISH_BY, CREATE_AT, 
+      NEW_BODY, NEW_PICTURE)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{style,jdbcType=VARCHAR}, 
+      #{newTitle,jdbcType=VARCHAR}, #{newCatagory,jdbcType=VARCHAR}, #{newSource,jdbcType=VARCHAR}, 
+      #{publishAt,jdbcType=TIMESTAMP}, #{publishBy,jdbcType=VARCHAR}, #{createAt,jdbcType=TIMESTAMP}, 
+      #{newBody,jdbcType=LONGVARCHAR}, #{newPicture,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpe.portal.web.resources.modules.ResNews" >
+    insert into RES_NEWS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="style != null" >
+        STYLE,
+      </if>
+      <if test="newTitle != null" >
+        NEW_TITLE,
+      </if>
+      <if test="newCatagory != null" >
+        NEW_CATAGORY,
+      </if>
+      <if test="newSource != null" >
+        NEW_SOURCE,
+      </if>
+      <if test="publishAt != null" >
+        PUBLISH_AT,
+      </if>
+      <if test="publishBy != null" >
+        PUBLISH_BY,
+      </if>
+      <if test="createAt != null" >
+        CREATE_AT,
+      </if>
+      <if test="newBody != null" >
+        NEW_BODY,
+      </if>
+      <if test="newPicture != null" >
+        NEW_PICTURE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="style != null" >
+        #{style,jdbcType=VARCHAR},
+      </if>
+      <if test="newTitle != null" >
+        #{newTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newCatagory != null" >
+        #{newCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="newSource != null" >
+        #{newSource,jdbcType=VARCHAR},
+      </if>
+      <if test="publishAt != null" >
+        #{publishAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishBy != null" >
+        #{publishBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newBody != null" >
+        #{newBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newPicture != null" >
+        #{newPicture,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mpe.portal.web.resources.modules.ResNews" >
+    update RES_NEWS
+    <set >
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="style != null" >
+        STYLE = #{style,jdbcType=VARCHAR},
+      </if>
+      <if test="newTitle != null" >
+        NEW_TITLE = #{newTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newCatagory != null" >
+        NEW_CATAGORY = #{newCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="newSource != null" >
+        NEW_SOURCE = #{newSource,jdbcType=VARCHAR},
+      </if>
+      <if test="publishAt != null" >
+        PUBLISH_AT = #{publishAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishBy != null" >
+        PUBLISH_BY = #{publishBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newBody != null" >
+        NEW_BODY = #{newBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newPicture != null" >
+        NEW_PICTURE = #{newPicture,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mpe.portal.web.resources.modules.ResNews" >
+    update RES_NEWS
+    set TYPE = #{type,jdbcType=VARCHAR},
+      STYLE = #{style,jdbcType=VARCHAR},
+      NEW_TITLE = #{newTitle,jdbcType=VARCHAR},
+      NEW_CATAGORY = #{newCatagory,jdbcType=VARCHAR},
+      NEW_SOURCE = #{newSource,jdbcType=VARCHAR},
+      PUBLISH_AT = #{publishAt,jdbcType=TIMESTAMP},
+      PUBLISH_BY = #{publishBy,jdbcType=VARCHAR},
+      CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
+      NEW_BODY = #{newBody,jdbcType=LONGVARCHAR},
+      NEW_PICTURE = #{newPicture,jdbcType=LONGVARBINARY}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mpe.portal.web.resources.modules.ResNews" >
+    update RES_NEWS
+    set TYPE = #{type,jdbcType=VARCHAR},
+      STYLE = #{style,jdbcType=VARCHAR},
+      NEW_TITLE = #{newTitle,jdbcType=VARCHAR},
+      NEW_CATAGORY = #{newCatagory,jdbcType=VARCHAR},
+      NEW_SOURCE = #{newSource,jdbcType=VARCHAR},
+      PUBLISH_AT = #{publishAt,jdbcType=TIMESTAMP},
+      PUBLISH_BY = #{publishBy,jdbcType=VARCHAR},
+      CREATE_AT = #{createAt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
