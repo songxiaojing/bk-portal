@@ -2,5 +2,5 @@ package com.mpe.portal.web.services;
 
 
 
-public interface ICustomerService {
+public interface IMessageService {
 }

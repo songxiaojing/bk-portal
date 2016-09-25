@@ -42,6 +42,71 @@
 
     <!-- 系统中application 定义-->
     <package name="application" namespace="/application" extends="struts-default,json-default">
-
+        <global-results>
+            <result name="message">/WEB-INF/jsp/common/message.jsp</result>
+            <result name="error">/WEB-INF/jsp/common/error.jsp</result>
+            <result name="exception">/WEB-INF/jsp/common/exception.jsp</result>
+            <result name="sigin" type="redirect">/sigin.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+        <action name="login" class="UserLogController" method="login">
+            <result name="loginView">/sigin.jsp</result>
+            <result name="centerView" type="redirect">/center/dashboard.dashboardView.action</result>
+        </action>
+        <!-- 网站用户登出模块 -->
+        <action name="logout" class="UserLogController" method="logout">
+            <result name="loginView" type="redirect">/sigin.jsp</result>
+        </action>
     </package>
+    <!-- message -->
+    <package name="application" namespace="/application" extends="struts-default,json-default">
+        <global-results>
+            <result name="message">/WEB-INF/jsp/common/message.jsp</result>
+            <result name="error">/WEB-INF/jsp/common/error.jsp</result>
+            <result name="exception">/WEB-INF/jsp/common/exception.jsp</result>
+            <result name="sigin" type="redirect">/sigin.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+        <action name="messageView.*" class="MessageView" method="{1}">
+        </action>
+        <action name="message.*" class="MessageController" method="{1}">
+        </action>
+    </package>
+    <!-- news-->
+    <package name="application" namespace="/application" extends="struts-default,json-default">
+        <global-results>
+            <result name="message">/WEB-INF/jsp/common/message.jsp</result>
+            <result name="error">/WEB-INF/jsp/common/error.jsp</result>
+            <result name="exception">/WEB-INF/jsp/common/exception.jsp</result>
+            <result name="sigin" type="redirect">/sigin.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+        <action name="newsView.*" class="NewsView" method="{1}">
+        </action>
+        <action name="news.*" class="NewsController" method="{1}">
+        </action>
+    </package>
+    <package name="center" namespace="/center" extends="struts-default,json-default">
+        <global-results>
+            <result name="message">/WEB-INF/jsp/common/message.jsp</result>
+            <result name="error">/WEB-INF/jsp/common/error.jsp</result>
+            <result name="exception">/WEB-INF/jsp/common/exception.jsp</result>
+            <result name="sigin" type="redirect">/sigin.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+        <!-- 个人中心主面板模块 -->
+        <action name="dashboardView.*" class="DashboardView" method="{1}">
+            <result name="dashboardView">/WEB-INF/jsp/center/dashboardView.jsp</result>
+        </action>
+    </package>
+
+
 </struts>

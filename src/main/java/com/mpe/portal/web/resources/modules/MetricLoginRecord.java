@@ -11,6 +11,10 @@ public class MetricLoginRecord {
 
     private Date loginAt;
 
+    private Date logoutAt;
+
+    private String logoutType;
+
     private String userAgent;
 
     private String sessionId;
@@ -49,6 +53,22 @@ public class MetricLoginRecord {
 
     public void setLoginAt(Date loginAt) {
         this.loginAt = loginAt;
+    }
+
+    public Date getLogoutAt() {
+        return logoutAt;
+    }
+
+    public void setLogoutAt(Date logoutAt) {
+        this.logoutAt = logoutAt;
+    }
+
+    public String getLogoutType() {
+        return logoutType;
+    }
+
+    public void setLogoutType(String logoutType) {
+        this.logoutType = logoutType;
     }
 
     public String getUserAgent() {

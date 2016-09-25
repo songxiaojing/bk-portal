@@ -6,6 +6,8 @@
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
     <result column="REMOTE_IP" property="remoteIp" jdbcType="VARCHAR" />
     <result column="LOGIN_AT" property="loginAt" jdbcType="TIMESTAMP" />
+    <result column="LOGOUT_AT" property="logoutAt" jdbcType="TIMESTAMP" />
+    <result column="LOGOUT_TYPE" property="logoutType" jdbcType="VARCHAR" />
     <result column="USER_AGENT" property="userAgent" jdbcType="VARCHAR" />
     <result column="SESSION_ID" property="sessionId" jdbcType="VARCHAR" />
     <result column="CREATE_AT" property="createAt" jdbcType="TIMESTAMP" />
@@ -14,7 +16,8 @@
     <result column="HTTP_HEAD" property="httpHead" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, USER_NAME, REMOTE_IP, LOGIN_AT, USER_AGENT, SESSION_ID, CREATE_AT
+    ID, USER_NAME, REMOTE_IP, LOGIN_AT, LOGOUT_AT, LOGOUT_TYPE, USER_AGENT, SESSION_ID, 
+    CREATE_AT
   </sql>
   <sql id="Blob_Column_List" >
     HTTP_HEAD
@@ -33,11 +36,13 @@
   </delete>
   <insert id="insert" parameterType="com.mpe.portal.web.resources.modules.MetricLoginRecord" >
     insert into METRIC_LOGIN_RECORD (ID, USER_NAME, REMOTE_IP, 
-      LOGIN_AT, USER_AGENT, SESSION_ID, 
-      CREATE_AT, HTTP_HEAD)
+      LOGIN_AT, LOGOUT_AT, LOGOUT_TYPE, 
+      USER_AGENT, SESSION_ID, CREATE_AT, 
+      HTTP_HEAD)
     values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{remoteIp,jdbcType=VARCHAR}, 
-      #{loginAt,jdbcType=TIMESTAMP}, #{userAgent,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, 
-      #{createAt,jdbcType=TIMESTAMP}, #{httpHead,jdbcType=LONGVARCHAR})
+      #{loginAt,jdbcType=TIMESTAMP}, #{logoutAt,jdbcType=TIMESTAMP}, #{logoutType,jdbcType=VARCHAR}, 
+      #{userAgent,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, #{createAt,jdbcType=TIMESTAMP}, 
+      #{httpHead,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mpe.portal.web.resources.modules.MetricLoginRecord" >
     insert into METRIC_LOGIN_RECORD
@@ -53,6 +58,12 @@
       </if>
       <if test="loginAt != null" >
         LOGIN_AT,
+      </if>
+      <if test="logoutAt != null" >
+        LOGOUT_AT,
+      </if>
+      <if test="logoutType != null" >
+        LOGOUT_TYPE,
       </if>
       <if test="userAgent != null" >
         USER_AGENT,
@@ -80,6 +91,12 @@
       <if test="loginAt != null" >
         #{loginAt,jdbcType=TIMESTAMP},
       </if>
+      <if test="logoutAt != null" >
+        #{logoutAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutType != null" >
+        #{logoutType,jdbcType=VARCHAR},
+      </if>
       <if test="userAgent != null" >
         #{userAgent,jdbcType=VARCHAR},
       </if>
@@ -106,6 +123,12 @@
       <if test="loginAt != null" >
         LOGIN_AT = #{loginAt,jdbcType=TIMESTAMP},
       </if>
+      <if test="logoutAt != null" >
+        LOGOUT_AT = #{logoutAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutType != null" >
+        LOGOUT_TYPE = #{logoutType,jdbcType=VARCHAR},
+      </if>
       <if test="userAgent != null" >
         USER_AGENT = #{userAgent,jdbcType=VARCHAR},
       </if>
@@ -126,6 +149,8 @@
     set USER_NAME = #{userName,jdbcType=VARCHAR},
       REMOTE_IP = #{remoteIp,jdbcType=VARCHAR},
       LOGIN_AT = #{loginAt,jdbcType=TIMESTAMP},
+      LOGOUT_AT = #{logoutAt,jdbcType=TIMESTAMP},
+      LOGOUT_TYPE = #{logoutType,jdbcType=VARCHAR},
       USER_AGENT = #{userAgent,jdbcType=VARCHAR},
       SESSION_ID = #{sessionId,jdbcType=VARCHAR},
       CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
@@ -137,6 +162,8 @@
     set USER_NAME = #{userName,jdbcType=VARCHAR},
       REMOTE_IP = #{remoteIp,jdbcType=VARCHAR},
       LOGIN_AT = #{loginAt,jdbcType=TIMESTAMP},
+      LOGOUT_AT = #{logoutAt,jdbcType=TIMESTAMP},
+      LOGOUT_TYPE = #{logoutType,jdbcType=VARCHAR},
       USER_AGENT = #{userAgent,jdbcType=VARCHAR},
       SESSION_ID = #{sessionId,jdbcType=VARCHAR},
       CREATE_AT = #{createAt,jdbcType=TIMESTAMP}

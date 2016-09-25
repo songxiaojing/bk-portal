@@ -1,6 +1,7 @@
 package com.mpe.portal.web.utils.http;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Properties;
 
 
 /**
@@ -13,6 +14,7 @@ public class HttpRequestUtil {
 
     /**
      * 取得USER_AGENT判断浏览器类型
+     *
      * @param request HttpServletRequest
      * @return String
      */
@@ -30,6 +32,7 @@ public class HttpRequestUtil {
      * @throws Exception
      */
     public static String getRemoteAddr(final HttpServletRequest request) throws Exception {
+
         try {
             String remoteAddr = request.getHeader("X-Forwarded-For");
             // 如果通过多级反向代理，X-Forwarded-For的值不止一个，而是一串用逗号分隔的IP值，此时取X-Forwarded-For中第一个非unknown的有效IP字符串
@@ -67,5 +70,9 @@ public class HttpRequestUtil {
             isEffective = true;
         }
         return isEffective;
+    }
+
+    public static Properties getHttpHeader(HttpServletRequest request) {
+        return new Properties();
     }
 }
