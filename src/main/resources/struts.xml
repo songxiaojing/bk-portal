@@ -40,65 +40,8 @@
     </package> -->
     <!-- App Module files -->
 
-    <!-- 系统中application 定义 -->
+    <!-- 系统中application 定义-->
     <package name="application" namespace="/application" extends="struts-default,json-default">
-        <global-results>
-            <result name="message">/WEB-INF/jsp/common/message.jsp</result>
-            <result name="error">/WEB-INF/jsp/common/error.jsp</result>
-            <result name="exception">/WEB-INF/jsp/common/exception.jsp</result>
-            <result name="sigin" type="redirect">/sigin.jsp</result>
-        </global-results>
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="exception"/>
-        </global-exception-mappings>
-        <!-- 网站用户登录模块 -->
-        <action name="login" class="LoginController" method="login">
-            <result name="loginView">/sigin.jsp</result>
-            <result name="centerView" type="redirect">/center/dashboard.dashboardView.action</result>
-            <result name="openStepA" type="redirect">/account/openStepA.stepFormView.action</result>
-            <result name="openStepB" type="redirect">/account/openStepB.stepFormView.action</result>
-            <result name="openStepC" type="redirect">/account/openStepC.stepFormView.action</result>
-            <result name="openStepD" type="redirect">/account/openStepD.stepFormView.action</result>
-            <result name="openStepE" type="redirect">/account/openStepE.stepFormView.action</result>
-        </action>
-        <!-- 网站用户登出模块 -->
-        <action name="logout" class="LogoutController" method="logout">
-            <result name="loginView" type="redirect">/sigin.jsp</result>
-        </action>
-        <!-- 短信发送模块 -->
-        <action name="sms.*" class="SMSController" method="{1}">
-        </action>
-    </package>
-    <package name="dim" namespace="/dim" extends="struts-default,json-default">
-        <global-results>
-            <result name="message">/WEB-INF/jsp/common/message.jsp</result>
-            <result name="error">/WEB-INF/jsp/common/error.jsp</result>
-            <result name="exception">/WEB-INF/jsp/common/exception.jsp</result>
-            <result name="sigin" type="redirect">/sigin.jsp</result>
-        </global-results>
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="exception"/>
-        </global-exception-mappings>
-        <!-- 维度数据 -->
-        <action name="dim.*" class="DimHatDataController" method="{1}">
-        </action>
-    </package>
 
-    <!-- 网站用户注册模块 -->
-    <package name="register" namespace="/register" extends="struts-default,json-default">
-        <global-results>
-            <result name="message">/WEB-INF/jsp/common/message.jsp</result>
-            <result name="error">/WEB-INF/jsp/common/error.jsp</result>
-            <result name="exception">/WEB-INF/jsp/common/exception.jsp</result>
-            <result name="sigin" type="redirect">/sigin.jsp</result>
-        </global-results>
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="exception"/>
-        </global-exception-mappings>
-        <!-- 网站用户注册模块 -->
-        <action name="user.*" class="UserRegisterController" method="{1}">
-            <result name="userRegisterForm">/WEB-INF/jsp/register/userRegisterForm.jsp</result>
-            <result name="nextOpenStepView" type="redirect">/account/openStepA.stepFormView.action</result>
-        </action>
     </package>
 </struts>

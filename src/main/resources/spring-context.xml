@@ -6,15 +6,15 @@
     <context:annotation-config/>
 
     <!-- 读取数据库配置信息 -->
-    <context:property-placeholder location="classpath:bk-center-cfg-env.properties"/>
+    <context:property-placeholder location="classpath:env.properties"/>
 
     <!-- 系统数据源配置 -->
-    <!-- 配置dataSource STOCK 数据库数据源 -->
-    <bean id="stockDataSource" destroy-method="close" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="${jdbc.buttonwood.stock.driverClassName}"/>
-        <property name="jdbcUrl" value="${jdbc.buttonwood.stock.url}"/>
-        <property name="user" value="${jdbc.buttonwood.stock.username}"/>
-        <property name="password" value="${jdbc.buttonwood.stock.password}"/>
+    <!-- 配置dataSource 数据库数据源 -->
+    <bean id="dataSource" destroy-method="close" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
         <!--初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
         <property name="initialPoolSize" value="1"/>
         <!--连接池中保留的最小连接数。 -->
@@ -30,26 +30,26 @@
     </bean>
 
 
-    <!-- Mybatis 配置段 STOCK数据源配置 -->
+    <!-- Mybatis 配置段 数据源配置 -->
     <!-- SessionFactory -->
-    <bean id="stockSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="stockDataSource"/>
-        <property name="mapperLocations" value="classpath*:com/bellwin/brokers/modules/center/mapper/*.xml"/>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:com/mpe/portal/web/resources/mappers/*.xml"/>
     </bean>
     <!-- 事务配置
     <bean id="stockTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="stockDataSource"/>
     </bean>-->
     <!-- 自动描述map.xml文件 -->
-    <bean id="stockMapperScaner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.bellwin.brokers.modules.center.dao"/>
-        <property name="sqlSessionFactoryBeanName" value="stockSqlSessionFactory"/>
+    <bean id="mapperScaner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.mpe.portal.web.resources.daos"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
     <!-- Struts 配置 -->
     <!-- 分别扫描 @Controller;@Service;@Repository -->
     <context:component-scan
-            base-package="com.bellwin.brokers.center.web.controllers,com.bellwin.brokers.center.web.services,com.bellwin.brokers.modules.center"
+            base-package="com.mpe.portal.web.controllers,com.mpe.portal.web.services,com.mpe.portal.web.resources"
             use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>

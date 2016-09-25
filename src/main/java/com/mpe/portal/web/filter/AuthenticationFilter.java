@@ -1,31 +1,53 @@
 package com.mpe.portal.web.filter;
 
 
-import com.mpe.portal.web.services.IAuthenticationService;
+import com.mpe.portal.web.utils.Assert;
 import com.mpe.portal.web.utils.app.AppReferent;
-import com.mpe.portal.web.utils.app.AppServletContextUtils;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.slf4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 权限登录验证,控制请求，验证身份.
  * Created by martin on 4/26/16.
  */
 public class AuthenticationFilter implements Filter {
-    final private static Logger theLogger  = LoggerFactory.getLogger(AuthenticationFilter.class);
+    final private static Logger theLogger = LoggerFactory.getLogger(AuthenticationFilter.class);
     final private static String LOGING_PAGE = "/sigin.jsp";
 
-    private IAuthenticationService authenticationService=null;
+
+    private List<String> _notCheckResource = new ArrayList<String>();
+    /**
+     * 定义系统中哪些URL可以跳过权限验证
+     */
+
+    private List<String> _notCheckServlets = new ArrayList<String>();
 
     private FilterConfig _config;
 
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+        this._config = filterConfig;
+        //
+        String notCheckResource = filterConfig.getInitParameter("notCheckResource");
+        String notCheckServlets = filterConfig.getInitParameter("notCheckServlets");
+        if (!Assert.isEmptyString(notCheckResource)) {
+            this._notCheckResource.addAll(Arrays.asList(notCheckResource.split(",")));
+        }
+        if (!Assert.isEmptyString(notCheckServlets)) {
+            this._notCheckServlets.addAll(Arrays.asList(notCheckServlets.split(",")));
+        }
+    }
 
     @Override
     public void destroy() {
@@ -36,7 +58,7 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         //根据认证的情况处理 :200认证通过/401需要用户重新登录/403请求禁止
-        switch (checkAuthentication(request)) {
+        switch (checkAuthentication((HttpServletRequest) request)) {
             case 200:
                 break;
             case 401:
@@ -53,13 +75,6 @@ public class AuthenticationFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-        this._config = filterConfig;
-
-        authenticationService= (IAuthenticationService) AppServletContextUtils.getSpringApplicationContext().getBean("AuthenticationServiceImpl");
-    }
 
     /**
      * 查询请求是否通过认证.
@@ -67,20 +82,28 @@ public class AuthenticationFilter implements Filter {
      * @param request
      * @return
      */
-    private int checkAuthentication(ServletRequest request) {
+    private int checkAuthentication(HttpServletRequest request) {
 
         //#1 是否存在用户信息在session中
-        if (((HttpServletRequest) request).getSession().getAttribute(AppReferent.session_current_user.getValue()) != null) {
+        if (request.getSession().getAttribute(AppReferent.session_current_user.getValue()) != null) {
             return 200;
         }
-       return authenticationService.hasAuthentication((HttpServletRequest) request);
+
+        //#1请求的资源目标
+        String requestTarget = request.getServletPath();
+        //#2检查请求的目标是否为可以跳过检查的资源或Servlet
+        if (isUnCheckResource(requestTarget) || isUnCheckServlet(requestTarget)) {
+            return 200;
+        }
+        //直接要求登录
+        return 401;
+
     }
 
     /**
      * 需要用户重新认证 、401 Unauthorized 未授权.
      *
      * @throws IOException
-     *
      */
     private void RedirectLoginPage(ServletRequest request, ServletResponse response) throws IOException {
 
@@ -90,6 +113,7 @@ public class AuthenticationFilter implements Filter {
         } else {
             loginPath = loginPath + LOGING_PAGE;
         }
+        theLogger.info("Redirect to Login for " + ((HttpServletRequest) request).getServletPath());
         ((HttpServletResponse) response).sendRedirect(loginPath);
 
     }
@@ -112,5 +136,35 @@ public class AuthenticationFilter implements Filter {
                 pw.close();
             }
         }
+    }
+
+    /**
+     * 检查请求资源是否为跳过检查的资源.
+     *
+     * @param servletPath String
+     * @return boolean
+     */
+    private boolean isUnCheckResource(String servletPath) {
+
+        for (int i = 0; i < this._notCheckResource.size(); i++) {
+            if (servletPath.endsWith(this._notCheckResource.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 检查请求资源是否为跳过检查的servlets.
+     *
+     * @param serverPath String
+     * @return boolean
+     */
+    private boolean isUnCheckServlet(String serverPath) {
+
+        if (this._notCheckServlets.contains(serverPath)) {
+            return true;
+        }
+        return false;
     }
 }

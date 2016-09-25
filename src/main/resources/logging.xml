@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration debug="true">
 	<!-- include the database connection configuration -->
-	<property resource="bk-center-cfg-env.properties" />
+	<property resource="env.properties" />
 	<!-- 日志存放目录
 	<property name="LOG_HOME" value="/home/martin/projects/stock/run/logs" />
 	-->
