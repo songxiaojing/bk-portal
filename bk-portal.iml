@@ -10,9 +10,27 @@
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
       </configuration>
+      <facet type="Struts2" name="Struts 2">
+        <configuration>
+          <fileset id="s2fileset" name="My Fileset " removed="false">
+            <file>jar://$MAVEN_REPOSITORY$/org/apache/struts/struts2-spring-plugin/2.3.28/struts2-spring-plugin-2.3.28.jar!/struts-plugin.xml</file>
+            <file>jar://$MAVEN_REPOSITORY$/org/apache/struts/struts2-json-plugin/2.3.28/struts2-json-plugin-2.3.28.jar!/struts-plugin.xml</file>
+            <file>jar://$MAVEN_REPOSITORY$/org/apache/struts/struts2-core/2.3.28/struts2-core-2.3.28.jar!/struts-default.xml</file>
+            <file>file://$MODULE_DIR$/src/main/resources/struts.xml</file>
+          </fileset>
+          <propertiesKeys disabled="false" />
+        </configuration>
+      </facet>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/spring-context.xml</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -22,6 +40,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.0" level="application_server_libraries" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-access:1.1.2" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.1.2" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.1.2" level="project" />
@@ -51,14 +70,10 @@
     <orderEntry type="library" name="Maven: org.apache.struts:struts2-json-plugin:2.3.28" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.struts:struts2-spring-plugin:2.3.28" level="project" />
-    <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.2" level="project" />
-    <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.11" level="project" />
-    <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.4.0" level="project" />
-    <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:1.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:1.2.2" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.30" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20160212" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.11" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.5" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.0" level="application_server_libraries" />
   </component>
 </module>

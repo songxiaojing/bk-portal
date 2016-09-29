@@ -10,7 +10,7 @@
 
     <!-- 系统数据源配置 -->
     <!-- 配置dataSource 数据库数据源 -->
-    <bean id="dataSource" destroy-method="close" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <bean id="stockDataSource" destroy-method="close" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="${jdbc.driverClassName}"/>
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="user" value="${jdbc.username}"/>
@@ -32,8 +32,8 @@
 
     <!-- Mybatis 配置段 数据源配置 -->
     <!-- SessionFactory -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
+    <bean id="stockSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="stockDataSource"/>
         <property name="mapperLocations" value="classpath*:com/mpe/portal/web/resources/mappers/*.xml"/>
     </bean>
     <!-- 事务配置
@@ -41,9 +41,9 @@
         <property name="dataSource" ref="stockDataSource"/>
     </bean>-->
     <!-- 自动描述map.xml文件 -->
-    <bean id="mapperScaner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <bean id="stockMapperScaner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.mpe.portal.web.resources.daos"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="sqlSessionFactoryBeanName" value="stockSqlSessionFactory"/>
     </bean>
 
     <!-- Struts 配置 -->

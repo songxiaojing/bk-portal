@@ -30,10 +30,10 @@ public class ApplicationServiceImpl extends BaseService implements IApplicationS
     private MetricWebVisitRecordMapper metricWebVisitRecordMapper = null;
 
     @Autowired
-    public void setSysUserMapper(MetricLoginRecordMapper metricLoginRecordMapper, MetricWebVisitRecordMapper metricWebVisitRecordMapper) {
+    public void setSysUserMapper(MetricLoginRecordMapper mlrMapper, MetricWebVisitRecordMapper mwvrMapper) {
 
-        this.metricLoginRecordMapper = metricLoginRecordMapper;
-        this.metricWebVisitRecordMapper = metricWebVisitRecordMapper;
+        this.metricLoginRecordMapper = mlrMapper;
+        this.metricWebVisitRecordMapper = mwvrMapper;
 
     }
 
@@ -75,6 +75,8 @@ public class ApplicationServiceImpl extends BaseService implements IApplicationS
         metricLoginRecord.setHttpHead(HttpRequestUtil.getHttpHeader(request).toString());
         metricLoginRecord.setUserAgent(HttpRequestUtil.getUserAgent(request));
         metricLoginRecord.setUserName(mobile);
+        this.metricWebVisitRecordMapper.selectByPrimaryKey(1L);
+        this.metricLoginRecordMapper.selectByPrimaryKey(1L);
         this.metricLoginRecordMapper.insertSelective(metricLoginRecord);
 
         return metricLoginRecord;

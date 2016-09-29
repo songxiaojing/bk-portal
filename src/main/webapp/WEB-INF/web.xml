@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
     <!-- below listeners must keep the order-->
-    <!--#1 listeners for platform logging -->
+    <!--#1 listeners for platform logging-->
     <listener>
         <listener-class>com.mpe.portal.web.listeners.AppLogListener</listener-class>
     </listener>
@@ -24,7 +24,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring-context.xml</param-value>
     </context-param>
-    <!-- encoding filters setting -->
+    <!-- encoding filters setting-->
     <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -41,7 +41,7 @@
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- Authentication filters -->
+    <!-- Authentication filters-->
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>com.mpe.portal.web.filter.AuthenticationFilter</filter-class>
@@ -51,14 +51,14 @@
         </init-param>
         <init-param>
             <param-name>notCheckServlets</param-name>
-            <param-value>/sigin.jsp,/application/login.action</param-value>
+            <param-value>/sigin.jsp,/application/login.action,/message/message.recordMessage.action</param-value>
         </init-param>
     </filter>
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- Authentication filters -->
+    <!-- Authentication filters-->
     <filter>
         <filter-name>VisitMonitorFilter</filter-name>
         <filter-class>com.mpe.portal.web.filter.VisitMonitorFilter</filter-class>
@@ -71,7 +71,7 @@
         <filter-name>VisitMonitorFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- struts framework setting -->
+    <!-- struts framework setting-->
     <filter>
         <filter-name>StrutsCleanUpFilter</filter-name>
         <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
@@ -112,6 +112,6 @@
         <location>/response/404.html</location>
     </error-page>
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>sigin.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

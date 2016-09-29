@@ -1,7 +1,5 @@
 package com.mpe.portal.web.utils.app;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -50,15 +48,4 @@ public class AppServletContextUtils {
 
     }
 
-    /**
-     * 取得MYBATIS的SQL会话.
-     * @return SqlSession
-     */
-    public static SqlSession getMyBatisSqlSession() {
-
-        WebApplicationContext beanContext = getSpringApplicationContext();
-        //sqlSessionFactory为SPRING配置文件中配置的BEAN.
-        DefaultSqlSessionFactory sqlSessionFactory = (DefaultSqlSessionFactory) beanContext.getBean("sqlSessionFactory");
-        return sqlSessionFactory.openSession();
-    }
 }

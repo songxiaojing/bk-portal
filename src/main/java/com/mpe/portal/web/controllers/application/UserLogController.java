@@ -40,6 +40,7 @@ public class UserLogController extends BaseController {
             String mobile = request.getParameter("mobile");
             String password = request.getParameter("password");
             //
+            thelogger.info("User[" + mobile + "] try to login with password.");
             if (Assert.isEmptyString(mobile) || Assert.isEmptyString(password)) {
                 this.setForwardMessage("手机号或密码错误");
                 return "loginView";
@@ -62,7 +63,7 @@ public class UserLogController extends BaseController {
 
             //如果没有客户资料，需要用户进行填写
 
-            thelogger.debug("System administrator " + mobile + "is Login.");
+            thelogger.info("System administrator[" + mobile + "] is Login.");
             //进入个人中心
             return "centerView";
         } catch (Exception e) {

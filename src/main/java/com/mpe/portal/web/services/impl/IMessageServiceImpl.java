@@ -1,13 +1,11 @@
 package com.mpe.portal.web.services.impl;
 
 import com.mpe.portal.web.resources.daos.ResMessageMapper;
+import com.mpe.portal.web.resources.modules.ResMessage;
 import com.mpe.portal.web.services.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by baiyanwei on 9/25/16.
- */
 @Service("IMessageServiceImpl")
 public class IMessageServiceImpl implements IMessageService {
 
@@ -21,4 +19,19 @@ public class IMessageServiceImpl implements IMessageService {
     }
 
 
+    @Override
+    public int createNewMessage(ResMessage resMessage) {
+        if (resMessage == null) {
+            return 0;
+        }
+        return this.resMessageMapper.insertSelective(resMessage);
+    }
+
+    @Override
+    public int feedbackMessage(ResMessage resMessage) {
+        if (resMessage == null) {
+            return 0;
+        }
+        return this.resMessageMapper.updateByPrimaryKeySelective(resMessage);
+    }
 }

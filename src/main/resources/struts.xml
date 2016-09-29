@@ -61,7 +61,7 @@
         </action>
     </package>
     <!-- message -->
-    <package name="application" namespace="/application" extends="struts-default,json-default">
+    <package name="message" namespace="/message" extends="struts-default,json-default">
         <global-results>
             <result name="message">/WEB-INF/jsp/common/message.jsp</result>
             <result name="error">/WEB-INF/jsp/common/error.jsp</result>
@@ -74,10 +74,11 @@
         <action name="messageView.*" class="MessageView" method="{1}">
         </action>
         <action name="message.*" class="MessageController" method="{1}">
+            <result name="servicePage">/service/service.html</result>
         </action>
     </package>
     <!-- news-->
-    <package name="application" namespace="/application" extends="struts-default,json-default">
+    <package name="news" namespace="/news" extends="struts-default,json-default">
         <global-results>
             <result name="message">/WEB-INF/jsp/common/message.jsp</result>
             <result name="error">/WEB-INF/jsp/common/error.jsp</result>

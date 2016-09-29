@@ -40,6 +40,12 @@
     width: 550px;
 }
 
+@media screen and (min-width: 768px) {
+    .carousel-news-images .carousel-caption {
+        padding-bottom: 100px;
+    }
+}
+
 .portal-news > li {
     padding-top: 6px;
 }
