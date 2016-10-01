@@ -12,10 +12,6 @@
         <param-name>app.cfg.log.path</param-name>
         <param-value>logging.xml</param-value>
     </context-param>
-    <!--#2 listeners for Session-->
-    <listener>
-        <listener-class>com.mpe.portal.web.listeners.AppSessionListener</listener-class>
-    </listener>
     <!--#4 listeners for spring context-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -25,6 +21,10 @@
         <param-value>classpath:spring-context.xml</param-value>
     </context-param>
     <!-- encoding filters setting-->
+    <!--#2 listeners for Session-->
+    <listener>
+        <listener-class>com.mpe.portal.web.listeners.AppSessionListener</listener-class>
+    </listener>
     <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

@@ -30,7 +30,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -41,10 +41,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.0" level="application_server_libraries" />
-    <orderEntry type="library" name="Maven: ch.qos.logback:logback-access:1.1.2" level="project" />
-    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.1.2" level="project" />
-    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.1.2" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:4.2.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:4.2.5.RELEASE" level="project" />
@@ -70,8 +66,15 @@
     <orderEntry type="library" name="Maven: org.apache.struts:struts2-json-plugin:2.3.28" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.struts:struts2-spring-plugin:2.3.28" level="project" />
-    <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:1.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:1.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.11" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.2" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.30" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-access:1.1.2" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.1.2" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20160212" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.11" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.5" level="project" />
