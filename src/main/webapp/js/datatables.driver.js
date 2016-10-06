@@ -18,7 +18,7 @@ var currentTableReferent = null;
  * @param selectModule
  * @returns {___anonymous897_898}
  */
-function buildDataTableReferent(tableDiv, tableId, columns, isOrdering, requestUrl, requestMethod, requestParameters, isShowRowNumber, isSelectable, selectModule) {
+function buildDataTableReferent(tableDiv, tableId, columns, isOrdering, requestUrl, requestMethod, requestParameters, isShowRowNumber, isSelectable, selectModule, otherHeight, currentPageCount) {
     var myTableReferent = {};
     myTableReferent.tableId = tableId;
     myTableReferent.tableDiv = tableDiv;
@@ -59,6 +59,20 @@ function buildDataTableReferent(tableDiv, tableId, columns, isOrdering, requestU
         rowNumberDefine.orderable = false;
         myTableReferent.columns.splice(0, 0, rowNumberDefine);
     }
+
+    var tableYheight = getWindowHeight() - 130;
+    if (otherHeight != null && otherHeight != "") {
+        tableYheight = tableYheight + 130 - otherHeight;
+    }
+    if (tableYheight < 0) {
+        tableYheight = 367;
+    }
+    myTableReferent.tableYheight = tableYheight;
+    //
+    if (currentPageCount == null || currentPageCount == "") {
+        currentPageCount = 20;
+    }
+    myTableReferent.currentPageCount = currentPageCount;
     return myTableReferent;
 }
 
@@ -142,7 +156,6 @@ function createColumnsShowDiv(columns) {
         dataTabColumnShowNode.innerHTML = "";
         var columnsContent = "";
         //
-        console.log(">>>>>>>" + columns.length);
         for (var i = 0; i < columns.length; i++) {
             if (columns[i].render == selectFormatter) {
                 columnsContent = columnsContent + "<li id='tabColSwitch_" + i + "' role=\"presentation\" class='col-li-selector-callout col-li-selector-selected'><a href='javascript:void(0);' onclick='changeTableColumnsShowSwitch(" + i + ");' class=\"toggle-vis\" data-column=\"" + i + "\"><input type='checkbox' disabled></a><li>";
@@ -190,7 +203,7 @@ function changeTableColumnsShowSwitch(targetA) {
  *
  * @param data
  */
-function createDataTable(tableReferent, otherHeight, currentPageCount) {
+function createDataTable(tableReferent, currentPageCount) {
     currentTableReferent = null;
     targetDataTableObject = {};
     if (tableReferent == null) {
@@ -199,9 +212,7 @@ function createDataTable(tableReferent, otherHeight, currentPageCount) {
 
     currentTableReferent = tableReferent;
     try {
-        if (currentPageCount == null || currentPageCount == "") {
-            currentPageCount = 20;
-        }
+
         // 创建显示列控制
         createColumnsShowDiv(tableReferent.columns);
         // 销毁并删除数据表
@@ -210,26 +221,19 @@ function createDataTable(tableReferent, otherHeight, currentPageCount) {
         $("#" + tableReferent.tableDiv)[0].innerHTML = "<table id=\"" + tableReferent.tableId
             + "\" class=\"table table-striped\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"></table>";
         // 调整表格的高度 所有元素高度总各为193
-        var tableYheight = getWindowHeight() - 130;
-        if (otherHeight != null && otherHeight != "") {
-            tableYheight = tableYheight + 130 - otherHeight;
-        }
-        if (tableYheight < 0) {
-            tableYheight = 367;
-        }
-        alert(tableYheight);
+
         // 初始化数据表 加载数据
         $('#' + tableReferent.tableId).dataTable({
             "autoWidth": true,
             "scrollX": true,
-            "scrollY": tableYheight + "px",
+            "scrollY": tableReferent.tableYheight + "px",
             "columns": tableReferent.columns,
             "retrieve": true,
             "aoColumnDefs": [],// 隐藏指定列
             "language": {
                 "url": "/plugins/datatable/resources/zh.txt"
             },
-            "displayLength": currentPageCount,
+            "displayLength": tableReferent.currentPageCount,
             "lengthMenu": [[20, 50, 100], [20, 50, 100]],
             "serverSide": true,
             "ajax": {

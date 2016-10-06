@@ -22,43 +22,48 @@
     <link rel="icon" href="/favicon.ico">
     <title>梧桐证券-个人中心-我的邀请</title>
     <!-- Bootstrap core CSS     -->
-    <link rel="stylesheet" type="text/css" href="/plugins/datatable/resources/bootstrap/3/dataTables.bootstrap.css">
+
     <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link rel="stylesheet" type="text/css" href="/plugins/datatable/resources/bootstrap/3/dataTables.bootstrap.css">
     <link href="/plugins/lbd/css/content.css" rel="stylesheet"/>
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
     <script type="text/javascript">
         var basePath = "<%=pathHelp.getBasePath()%>";
         var jsPath = "<%=pathHelp.getJsPath()%>";
     </script>
 </head>
 <body>
-<div id="resourceTableDiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <div class="btn-toolbar" role="toolbar">
-        <div class="btn-group" id="dataTableToolbarNode"></div>
-        <div class="btn-group hide" id="dataTableToolbarNodeMoreDiv">
-            <button id="dataTableToolbarNodeMoreNodeBut" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                更多 <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" id="dataTableToolbarNodeMoreNode" aria-labelledby="dataTableToolbarNodeMoreNodeBut"></ul>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group" id="dataTableToolbarNode"></div>
+                <div class="btn-group hide" id="dataTableToolbarNodeMoreDiv">
+                    <button id="dataTableToolbarNodeMoreNodeBut" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                        更多 <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" id="dataTableToolbarNodeMoreNode" aria-labelledby="dataTableToolbarNodeMoreNodeBut"></ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-primary" onclick="reloadDataGrid()">
+                        <span class="glyphicon glyphicon-refresh"></span> 刷新
+                    </button>
+                    <button type="button" class="btn btn-default btn-primary" data-toggle="modal" data-target="#tableSearchModalDiv">
+                        <span class="glyphicon glyphicon-search"></span> 查询
+                    </button>
+                </div>
+                <div class="btn-group">
+                    <button id="showTableColumns" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-eye-open"></span>显示 <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" id="dataTabColumnShowNode" aria-labelledby="showTableColumns"></ul>
+                </div>
+                <!-- /btn-group -->
+                <!-- /input-group -->
+            </div>
+            <div class="table-responsive" id="tssDataTableDiv"></div>
         </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-default btn-primary" onclick="reloadDataGrid()">
-                <span class="glyphicon glyphicon-refresh"></span> 刷新
-            </button>
-            <button type="button" class="btn btn-default btn-primary" data-toggle="modal" data-target="#tableSearchModalDiv">
-                <span class="glyphicon glyphicon-search"></span> 查询
-            </button>
-        </div>
-        <div class="btn-group">
-            <button id="showTableColumns" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                <span class="glyphicon glyphicon-eye-open"></span>显示 <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" id="dataTabColumnShowNode" aria-labelledby="showTableColumns"></ul>
-        </div>
-        <!-- /btn-group -->
-        <!-- /input-group -->
     </div>
-    <div class="table-responsive" id="tssDataTableDiv"></div>
 </div>
 <!-- Modal search div -->
 <div class="modal fade" id="tableSearchModalDiv" tabindex="-1" role="dialog" aria-labelledby="tableSearchLabel" aria-hidden="true">
@@ -125,6 +130,7 @@
 <!--   Core JS Files   -->
 <script src="/plugins/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="/plugins/jquery/jquery.bootstrap.min.js" type="text/javascript"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/plugins/datatable/js/jquery.dataTables.js"></script>
 <script src="/plugins/datatable/resources/bootstrap/3/dataTables.bootstrap.js"></script>
 <script src="/plugins/json/json_parse.js"></script>
@@ -152,9 +158,9 @@
                         var isShowLineNumber = true;
                         var isTableSortable = true;
                         var tableDataAjaxUrl = "/message/message.listTableData.action";
-                        var targetDataTablesReferent = buildDataTableReferent(tssDataTableDiv, tssDataTableDivTable, data.content, isTableSortable, tableDataAjaxUrl, "POST", optData, isShowLineNumber, isTableSelectable, "more");
+                        var targetDataTablesReferent = buildDataTableReferent(tssDataTableDiv, tssDataTableDivTable, data.content, isTableSortable, tableDataAjaxUrl, "POST", optData, isShowLineNumber, isTableSelectable, "more", 140, 20);
 
-                        createDataTable(targetDataTablesReferent, 260, 20);
+                        createDataTable(targetDataTablesReferent);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alert("ajax error:" + textStatus + " 请求表格搜索数据错误");

@@ -1,18 +1,4 @@
 body {
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-
-.panel-heading {
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.customer-info-list > dt, dd {
-    padding-top: 18px;
-}
-
-.bank_img {
-    height: 100px;
-    width: 100px;
+    padding-top: 10px;
+    padding-bottom: 2px;
 }
