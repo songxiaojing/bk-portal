@@ -5,9 +5,12 @@ import com.mpe.portal.web.controllers.BaseController;
 import com.mpe.portal.web.resources.modules.ResMessage;
 import com.mpe.portal.web.services.IMessageService;
 import com.mpe.portal.web.utils.Assert;
+import com.mpe.portal.web.utils.HttpContentType;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
@@ -142,7 +145,15 @@ public class MessageController extends BaseController {
         return "";
     }
 
-    public String remove() {
-        return "";
+    public void remove() throws Exception {
+        String ids = getRequest().getParameter("ids");
+        if (Assert.isEmptyString(ids)) {
+            throw new Exception("删除消息记录id无效");
+        }
+        int result = this.messageService.deleteMessageByIds(ids);
+        JSONObject resultObj = new JSONObject();
+        resultObj.put("message", "成功删除消息 " + result + " 条");
+        this.pushBackToClient(HttpStatus.OK, HttpContentType.JSON, resultObj.toString());
+        return;
     }
 }

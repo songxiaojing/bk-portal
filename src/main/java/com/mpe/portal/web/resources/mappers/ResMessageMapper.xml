@@ -223,5 +223,12 @@
             </if>
         </where>
     </select>
-
+    <!-- 根据ID批量删除 -->
+    <delete id="deleteByIds" parameterType="java.lang.Long">
+        delete from RES_MESSAGE
+        WHERE ID IN
+        <foreach item="ids" collection="array" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
 </mapper>

@@ -99,10 +99,10 @@ function buildDataTableColumnsByString(columnsJsonString) {
                     return columnContextRender;
                 } else if (value == "formTypeFormatter") {
                     return formTypeFormatter;
-                } else if (value == "eventDetailFormatter") {
-                    return eventDetailFormatter;
-                } else if (value == "heventDetailFormatter") {
-                    return heventDetailFormatter
+                } else if (value == "resMessageFeedbackRender") {
+                    return resMessageFeedbackRender;
+                } else if (value == "resNewsDetailRender") {
+                    return resNewsDetailRender;
                 } else if (value == "resCorporationDetailFormatter") {
                     return resCorporationDetailFormatter;
                 } else if (value == "resCorporationGroupDetailFormatter") {
@@ -557,7 +557,7 @@ function formTypeFormatter(value, type, row, index) {
  * @param row
  * @param index
  */
-function eventDetailFormatter(value, type, row, index) {
+function resMessageFeedbackRender(value, type, row, index) {
 
     var width = 800; // 弹出窗口的宽度;
     var heigth = 600; // 弹出窗口的高度;
@@ -565,7 +565,7 @@ function eventDetailFormatter(value, type, row, index) {
     var left = (window.screen.availWidth - 10 - width) / 2; // 获得窗口的水平位置;
     var windowParam = "height=" + heigth + ", width=" + width + ", top=" + top + ",left=" + left + ", toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no";
 
-    var url = basePath + "event/dealEventView.detailView.action?id=" + row.id;
+    var url = basePath + "message/messageView.detail.action?id=" + row.id;
     return "<a href='javascript:void(0);' onclick=\"javascript:window.open('" + url + "', 'null', '" + windowParam + "');\">" + value + "</a>";
 }
 /**
@@ -576,7 +576,7 @@ function eventDetailFormatter(value, type, row, index) {
  * @param row
  * @param index
  */
-function heventDetailFormatter(value, type, row, index) {
+function resNewsDetailRender(value, type, row, index) {
 
     var width = 800; // 弹出窗口的宽度;
     var heigth = 660; // 弹出窗口的高度;

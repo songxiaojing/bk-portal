@@ -76,6 +76,7 @@
         </global-exception-mappings>
         <action name="messageView.*" class="MessageView" method="{1}">
             <result name="list">/WEB-INF/jsp/center/resMessageList.jsp</result>
+            <result name="detail">/WEB-INF/jsp/center/resMessageDetail.jsp</result>
         </action>
         <action name="message.*" class="MessageController" method="{1}">
             <result name="servicePage">/service/service.html</result>

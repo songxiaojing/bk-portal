@@ -37,12 +37,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group" id="dataTableToolbarNode"></div>
-                <div class="btn-group hide" id="dataTableToolbarNodeMoreDiv">
-                    <button id="dataTableToolbarNodeMoreNodeBut" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                        更多 <span class="caret"></span>
+                <div class="btn-group" id="dataTableToolbarNode">
+                    <button type="button" class="btn btn-default btn-primary" onclick="resMessageFeedback()">
+                        <span class="glyphicon glyphicon-pencil"></span> 反馈
                     </button>
-                    <ul class="dropdown-menu" role="menu" id="dataTableToolbarNodeMoreNode" aria-labelledby="dataTableToolbarNodeMoreNodeBut"></ul>
+                    <button type="button" class="btn btn-default btn-primary" onclick="removeMessage()">
+                        <span class="glyphicon glyphicon-minus"></span> 删除
+                    </button>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-default btn-primary" onclick="reloadDataGrid()">
@@ -78,27 +79,25 @@
             <div class="modal-body">
                 <form name="searchForm" id="searchForm" class="form-horizontal" method="POST" onsubmit="return false;"
                       onKeyDown="javascript:if(event.keyCode==13)searchResource();">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="mobile" class="col-sm-3 control-label">手机号码:</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="手机号码">
-                                <span class="help-block"></span>
-                            </div>
+                    <div class="form-group">
+                        <label for="mobile" class="col-sm-3 control-label">手机号码:</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="手机号码">
+                            <span class="help-block"></span>
                         </div>
-                        <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label"><span class="requiredInputLabel">*</span>姓名:</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名">
-                                <span class="help-block"></span>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label"><span class="requiredInputLabel">*</span>姓名:</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名">
+                            <span class="help-block"></span>
                         </div>
-                        <div class="form-group input-group-lg">
-                            <label for="email" class="col-sm-3 control-label">邮箱:</label>
-                            <div class="col-sm-7 ">
-                                <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱">
-                                <span class="help-block"></span>
-                            </div>
+                    </div>
+                    <div class="form-group input-group-lg">
+                        <label for="email" class="col-sm-3 control-label">邮箱:</label>
+                        <div class="col-sm-7 ">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱">
+                            <span class="help-block"></span>
                         </div>
                     </div>
                 </form>
@@ -122,7 +121,9 @@
                 <h4 class="modal-title" id="resourceOperationLabel">操作</h4>
             </div>
             <div class="modal-body">
-                <iframe id="resourceOperationModalDivFrame" scrolling="auto" frameborder="0" src="#" style="width:100%;height:100%;"></iframe>
+                <div class="modal-body">
+                    <iframe id="ajaxOperationResourceModalDivFrame" scrolling="auto" frameborder="0" src="#" style="width:100%;height:100%;"></iframe>
+                </div>
             </div>
         </div>
     </div>

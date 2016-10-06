@@ -13,5 +13,9 @@ public interface IMessageService {
 
     int countByCondition(HashMap<String, String> paramsMap);
 
-    List<HashMap<String,String>> selectByCondition(HashMap<String, String> paramsMap);
+    List<HashMap<String, String>> selectByCondition(HashMap<String, String> paramsMap);
+
+    public ResMessage getResMessageById(long l);
+
+    public int deleteMessageByIds(String ids);
 }

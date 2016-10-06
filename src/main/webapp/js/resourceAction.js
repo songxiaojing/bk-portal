@@ -72,16 +72,11 @@ function showAjaxResultDialog(targetUrl) {
         alert(e);
     }
 }
-/**
- * 反馈留言
- */
-function feedbackMessage(){
 
-}
 /**
  * 删除留言
  */
-function removeMessage(){
+function removeMessage() {
     try {
         var ids = [];
         var rows = getSelectedRowData();
@@ -133,33 +128,23 @@ function downResource(uuid) {
 
 
 /**
- * 用户密码重置
+ * 反馈留言
  */
-function fn_crmUserResetPassWord() {
+function resMessageFeedback() {
     try {
-        var ids = [];
         var rows = getSelectedRowData();
 
-        if (rows.length == 0) {
-            $.messager.alert('提示信息', '请选择用户!', 'warning');
+        if (rows.length == 0 || rows.length > 1) {
+            $.messager.alert('提示信息', '请选择一条消息!', 'warning');
             return;
         } else {
-            var columns = getCurrentTableColumns();
-            var selectDate = "将以下用户密码重置为tss123:";
-            for (var i = 0; i < rows.length; i++) {
-                ids.push(rows[i].id);
-                selectDate += "<br>" + rows[i][columns[2]["data"]] + "用户";
-            }
-            $.messager.confirm('提示信息', selectDate, function () {
-                var pageUrl = basePath + "authorize/authorize.passwordReset.action?ids=" + ids.join(',');
-                showAjaxResultDialog(pageUrl);
-            });
+            showModalDialog("/message/messageView.detail.action?id=" + rows[0].id, "出账确认");
         }
     } catch (e) {
         alert(e);
     }
 }
-
+//////////////////
 /**
  * 作废资源
  */

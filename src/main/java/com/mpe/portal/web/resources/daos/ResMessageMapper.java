@@ -35,4 +35,6 @@ public interface ResMessageMapper {
      * @return
      */
     public int countByCondition(Map<String, Object> conditionMap);
+
+    public int deleteByIds(String ids);
 }

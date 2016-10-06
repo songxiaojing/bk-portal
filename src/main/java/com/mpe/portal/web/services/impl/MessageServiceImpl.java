@@ -20,6 +20,7 @@ import java.util.Map;
 public class MessageServiceImpl implements IMessageService {
 
     final private static String INPUT_DATE_FORMATTOR = "yyyy-MM-dd";
+    final private static String TABLE_DATE_FORMATTOR = "yyyy-MM-dd hh:mm:ss";
     final private static Logger theLogger = LoggerFactory.getLogger(MessageServiceImpl.class);
 
     private ResMessageMapper resMessageMapper = null;
@@ -64,6 +65,7 @@ public class MessageServiceImpl implements IMessageService {
         try {
             List<ResMessage> selectList = this.resMessageMapper.selectByCondition(buildSelectConditionMap(paramsMap));
             ArrayList<HashMap<String, String>> tabDataList = new ArrayList<HashMap<String, String>>();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(TABLE_DATE_FORMATTOR);
             for (ResMessage resMessage : selectList) {
                 try {
                     HashMap<String, String> rawData = new HashMap<String, String>();
@@ -71,7 +73,7 @@ public class MessageServiceImpl implements IMessageService {
                     rawData.put("name", resMessage.getName());
                     rawData.put("mobile", resMessage.getMobile());
                     rawData.put("email", resMessage.getEmail());
-                    rawData.put("messageAt", resMessage.getMessageAt().toString());
+                    rawData.put("messageAt", simpleDateFormat.format(resMessage.getMessageAt()));
                     if (Assert.isEmptyString(resMessage.getFeedback())) {
                         rawData.put("feedback", "");
                     } else {
@@ -80,14 +82,14 @@ public class MessageServiceImpl implements IMessageService {
                     if (resMessage.getFeedbackAt() == null) {
                         rawData.put("feedbackAt", "");
                     } else {
-                        rawData.put("feedbackAt", resMessage.getFeedbackAt().toString());
+                        rawData.put("feedbackAt", simpleDateFormat.format(resMessage.getFeedbackAt()));
                     }
                     if (Assert.isEmptyString(resMessage.getFeedbackBy())) {
                         rawData.put("feedbackBy", "");
                     } else {
                         rawData.put("feedbackBy", resMessage.getFeedbackBy());
                     }
-                    rawData.put("createAt", resMessage.getCreateAt().toString());
+                    rawData.put("createAt", simpleDateFormat.format(resMessage.getCreateAt()));
                     rawData.put("message", resMessage.getMessage());
                     tabDataList.add(rawData);
                 } catch (Exception e) {
@@ -100,6 +102,19 @@ public class MessageServiceImpl implements IMessageService {
             theLogger.error("", e);
         }
         return new ArrayList<HashMap<String, String>>();
+    }
+
+    @Override
+    public ResMessage getResMessageById(long id) {
+        return this.resMessageMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int deleteMessageByIds(String ids) {
+        if (Assert.isEmptyString(ids)) {
+            return 0;
+        }
+        return this.resMessageMapper.deleteByIds(ids);
     }
 
     private Map<String, Object> buildSelectConditionMap(HashMap<String, String> conditionMap) throws ParseException {
