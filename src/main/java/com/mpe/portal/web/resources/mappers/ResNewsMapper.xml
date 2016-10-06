@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mpe.portal.web.resources.daos.ResNewsMapper" >
-  <resultMap id="BaseResultMap" type="com.mpe.portal.web.resources.modules.ResNews" >
-    <id column="ID" property="id" jdbcType="BIGINT" />
-    <result column="TYPE" property="type" jdbcType="VARCHAR" />
-    <result column="STYLE" property="style" jdbcType="VARCHAR" />
-    <result column="NEW_TITLE" property="newTitle" jdbcType="VARCHAR" />
-    <result column="NEW_CATAGORY" property="newCatagory" jdbcType="VARCHAR" />
-    <result column="NEW_SOURCE" property="newSource" jdbcType="VARCHAR" />
-    <result column="PUBLISH_AT" property="publishAt" jdbcType="TIMESTAMP" />
-    <result column="PUBLISH_BY" property="publishBy" jdbcType="VARCHAR" />
-    <result column="CREATE_AT" property="createAt" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.mpe.portal.web.resources.modules.ResNews" extends="BaseResultMap" >
-    <result column="NEW_BODY" property="newBody" jdbcType="LONGVARCHAR" />
-    <result column="NEW_PICTURE" property="newPicture" jdbcType="LONGVARBINARY" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.mpe.portal.web.resources.daos.ResNewsMapper">
+    <resultMap id="BaseResultMap" type="com.mpe.portal.web.resources.modules.ResNews">
+        <id column="ID" property="id" jdbcType="BIGINT"/>
+        <result column="TYPE" property="type" jdbcType="VARCHAR"/>
+        <result column="STYLE" property="style" jdbcType="VARCHAR"/>
+        <result column="NEW_TITLE" property="newTitle" jdbcType="VARCHAR"/>
+        <result column="NEW_CATAGORY" property="newCatagory" jdbcType="VARCHAR"/>
+        <result column="NEW_SOURCE" property="newSource" jdbcType="VARCHAR"/>
+        <result column="PUBLISH_AT" property="publishAt" jdbcType="TIMESTAMP"/>
+        <result column="PUBLISH_BY" property="publishBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_AT" property="createAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.mpe.portal.web.resources.modules.ResNews" extends="BaseResultMap">
+        <result column="NEW_BODY" property="newBody" jdbcType="LONGVARCHAR"/>
+        <result column="NEW_PICTURE" property="newPicture" jdbcType="LONGVARBINARY"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     ID, TYPE, STYLE, NEW_TITLE, NEW_CATAGORY, NEW_SOURCE, PUBLISH_AT, PUBLISH_BY, CREATE_AT
   </sql>
-  <sql id="Blob_Column_List" >
+    <sql id="Blob_Column_List">
     NEW_BODY, NEW_PICTURE
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from RES_NEWS
-    where ID = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from RES_NEWS
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from RES_NEWS
     where ID = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.mpe.portal.web.resources.modules.ResNews" >
+    <insert id="insert" parameterType="com.mpe.portal.web.resources.modules.ResNews">
     insert into RES_NEWS (ID, TYPE, STYLE, 
       NEW_TITLE, NEW_CATAGORY, NEW_SOURCE, 
       PUBLISH_AT, PUBLISH_BY, CREATE_AT, 
@@ -44,116 +44,116 @@
       #{publishAt,jdbcType=TIMESTAMP}, #{publishBy,jdbcType=VARCHAR}, #{createAt,jdbcType=TIMESTAMP}, 
       #{newBody,jdbcType=LONGVARCHAR}, #{newPicture,jdbcType=LONGVARBINARY})
   </insert>
-  <insert id="insertSelective" parameterType="com.mpe.portal.web.resources.modules.ResNews" >
-    insert into RES_NEWS
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
-      <if test="type != null" >
-        TYPE,
-      </if>
-      <if test="style != null" >
-        STYLE,
-      </if>
-      <if test="newTitle != null" >
-        NEW_TITLE,
-      </if>
-      <if test="newCatagory != null" >
-        NEW_CATAGORY,
-      </if>
-      <if test="newSource != null" >
-        NEW_SOURCE,
-      </if>
-      <if test="publishAt != null" >
-        PUBLISH_AT,
-      </if>
-      <if test="publishBy != null" >
-        PUBLISH_BY,
-      </if>
-      <if test="createAt != null" >
-        CREATE_AT,
-      </if>
-      <if test="newBody != null" >
-        NEW_BODY,
-      </if>
-      <if test="newPicture != null" >
-        NEW_PICTURE,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="style != null" >
-        #{style,jdbcType=VARCHAR},
-      </if>
-      <if test="newTitle != null" >
-        #{newTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="newCatagory != null" >
-        #{newCatagory,jdbcType=VARCHAR},
-      </if>
-      <if test="newSource != null" >
-        #{newSource,jdbcType=VARCHAR},
-      </if>
-      <if test="publishAt != null" >
-        #{publishAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="publishBy != null" >
-        #{publishBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createAt != null" >
-        #{createAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="newBody != null" >
-        #{newBody,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="newPicture != null" >
-        #{newPicture,jdbcType=LONGVARBINARY},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mpe.portal.web.resources.modules.ResNews" >
-    update RES_NEWS
-    <set >
-      <if test="type != null" >
-        TYPE = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="style != null" >
-        STYLE = #{style,jdbcType=VARCHAR},
-      </if>
-      <if test="newTitle != null" >
-        NEW_TITLE = #{newTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="newCatagory != null" >
-        NEW_CATAGORY = #{newCatagory,jdbcType=VARCHAR},
-      </if>
-      <if test="newSource != null" >
-        NEW_SOURCE = #{newSource,jdbcType=VARCHAR},
-      </if>
-      <if test="publishAt != null" >
-        PUBLISH_AT = #{publishAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="publishBy != null" >
-        PUBLISH_BY = #{publishBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createAt != null" >
-        CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="newBody != null" >
-        NEW_BODY = #{newBody,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="newPicture != null" >
-        NEW_PICTURE = #{newPicture,jdbcType=LONGVARBINARY},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mpe.portal.web.resources.modules.ResNews" >
+    <insert id="insertSelective" parameterType="com.mpe.portal.web.resources.modules.ResNews">
+        insert into RES_NEWS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="type != null">
+                TYPE,
+            </if>
+            <if test="style != null">
+                STYLE,
+            </if>
+            <if test="newTitle != null">
+                NEW_TITLE,
+            </if>
+            <if test="newCatagory != null">
+                NEW_CATAGORY,
+            </if>
+            <if test="newSource != null">
+                NEW_SOURCE,
+            </if>
+            <if test="publishAt != null">
+                PUBLISH_AT,
+            </if>
+            <if test="publishBy != null">
+                PUBLISH_BY,
+            </if>
+            <if test="createAt != null">
+                CREATE_AT,
+            </if>
+            <if test="newBody != null">
+                NEW_BODY,
+            </if>
+            <if test="newPicture != null">
+                NEW_PICTURE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="style != null">
+                #{style,jdbcType=VARCHAR},
+            </if>
+            <if test="newTitle != null">
+                #{newTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="newCatagory != null">
+                #{newCatagory,jdbcType=VARCHAR},
+            </if>
+            <if test="newSource != null">
+                #{newSource,jdbcType=VARCHAR},
+            </if>
+            <if test="publishAt != null">
+                #{publishAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="publishBy != null">
+                #{publishBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createAt != null">
+                #{createAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="newBody != null">
+                #{newBody,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="newPicture != null">
+                #{newPicture,jdbcType=LONGVARBINARY},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mpe.portal.web.resources.modules.ResNews">
+        update RES_NEWS
+        <set>
+            <if test="type != null">
+                TYPE = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="style != null">
+                STYLE = #{style,jdbcType=VARCHAR},
+            </if>
+            <if test="newTitle != null">
+                NEW_TITLE = #{newTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="newCatagory != null">
+                NEW_CATAGORY = #{newCatagory,jdbcType=VARCHAR},
+            </if>
+            <if test="newSource != null">
+                NEW_SOURCE = #{newSource,jdbcType=VARCHAR},
+            </if>
+            <if test="publishAt != null">
+                PUBLISH_AT = #{publishAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="publishBy != null">
+                PUBLISH_BY = #{publishBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createAt != null">
+                CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="newBody != null">
+                NEW_BODY = #{newBody,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="newPicture != null">
+                NEW_PICTURE = #{newPicture,jdbcType=LONGVARBINARY},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mpe.portal.web.resources.modules.ResNews">
     update RES_NEWS
     set TYPE = #{type,jdbcType=VARCHAR},
       STYLE = #{style,jdbcType=VARCHAR},
@@ -167,7 +167,7 @@
       NEW_PICTURE = #{newPicture,jdbcType=LONGVARBINARY}
     where ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mpe.portal.web.resources.modules.ResNews" >
+    <update id="updateByPrimaryKey" parameterType="com.mpe.portal.web.resources.modules.ResNews">
     update RES_NEWS
     set TYPE = #{type,jdbcType=VARCHAR},
       STYLE = #{style,jdbcType=VARCHAR},
@@ -179,4 +179,60 @@
       CREATE_AT = #{createAt,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+    <!-- 按条件查询-分页查询? @param Map 如果Map包含pageNo和pageSize 则就是条件分页查询,否则就是条件查询 -->
+    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from RES_NEWS
+        <where>
+            1=1
+            <if test="type != null and type != '' ">
+                AND INSTR(TYPE,#{type})>0
+            </if>
+            <if test="newTitle != null and newTitle != '' ">
+                AND INSTR(NEW_TITLE,#{newTitle})>0
+            </if>
+            <if test="newCatagory != null and newCatagory != '' ">
+                AND INSTR(NEW_CATAGORY,#{newCatagory})>0
+            </if>
+            <if test="publishBy != null and publishBy != '' ">
+                AND INSTR(PUBLISH_BY,#{publishBy})>0
+            </if>
+            <if test="publishAt_startAt != null and publishAt_startAt != '' and publishAt_endAt != null and publishAt_endAt != ''">
+                AND PUBLISH_AT BETWEEN #{publishAt_startAt} AND #{publishAt_endAt}
+            </if>
+        </where>
+        <if test="orderColumnNameAndDir != null and orderColumnNameAndDir != '' ">
+            ORDER BY ${orderColumnNameAndDir}
+        </if>
+        <if test="pageNo != null and pageSize != null">
+            limit #{pageNo,jdbcType=BIGINT},#{pageSize,jdbcType=BIGINT}
+        </if>
+    </select>
+
+    <!-- 按条件查询总数量 @param Map -->
+    <select id="countByCondition" parameterType="java.util.Map" resultType="int">
+        select count(ID) from RES_NEWS
+        <where>
+            1=1
+            <if test="type != null and type != '' ">
+                AND INSTR(TYPE,#{type})>0
+            </if>
+            <if test="newTitle != null and newTitle != '' ">
+                AND INSTR(NEW_TITLE,#{newTitle})>0
+            </if>
+            <if test="newCatagory != null and newCatagory != '' ">
+                AND INSTR(NEW_CATAGORY,#{newCatagory})>0
+            </if>
+            <if test="publishBy != null and publishBy != '' ">
+                AND INSTR(PUBLISH_BY,#{publishBy})>0
+            </if>
+            <if test="publishAt_startAt != null and publishAt_startAt != '' and publishAt_endAt != null and publishAt_endAt != ''">
+                AND PUBLISH_AT BETWEEN #{publishAt_startAt} AND #{publishAt_endAt}
+            </if>
+        </where>
+    </select>
+
 </mapper>

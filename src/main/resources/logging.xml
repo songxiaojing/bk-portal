@@ -28,12 +28,9 @@
 			<pattern>%date %level [%thread] %logger{10} %msg%n</pattern>
 		</encoder>
 	</appender>
-	<!--
-	<logger name="org.mybatis.spring.SqlSessionFactoryBean" level="ERROR" />
 	<logger name="org.mybatis.spring.SqlSessionFactoryBean" level="ERROR" />
 	<logger name="com.mchange.v2.resourcepool.BasicResourcePool" level="ERROR" />
 	<logger name="com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool" level="ERROR" />
-	-->
 	<!-- 确认LOGGING系统的输出使用规则 -->
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />

@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mpe.portal.web.resources.daos.ResMessageMapper" >
-  <resultMap id="BaseResultMap" type="com.mpe.portal.web.resources.modules.ResMessage" >
-    <id column="ID" property="id" jdbcType="BIGINT" />
-    <result column="NAME" property="name" jdbcType="VARCHAR" />
-    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
-    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
-    <result column="MESSAGE_AT" property="messageAt" jdbcType="TIMESTAMP" />
-    <result column="FEEDBACK" property="feedback" jdbcType="VARCHAR" />
-    <result column="FEEDBACK_AT" property="feedbackAt" jdbcType="TIMESTAMP" />
-    <result column="FEEDBACK_BY" property="feedbackBy" jdbcType="VARCHAR" />
-    <result column="CREATE_AT" property="createAt" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.mpe.portal.web.resources.modules.ResMessage" extends="BaseResultMap" >
-    <result column="MESSAGE" property="message" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.mpe.portal.web.resources.daos.ResMessageMapper">
+    <resultMap id="BaseResultMap" type="com.mpe.portal.web.resources.modules.ResMessage">
+        <id column="ID" property="id" jdbcType="BIGINT"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="MOBILE" property="mobile" jdbcType="VARCHAR"/>
+        <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
+        <result column="MESSAGE_AT" property="messageAt" jdbcType="TIMESTAMP"/>
+        <result column="FEEDBACK" property="feedback" jdbcType="VARCHAR"/>
+        <result column="FEEDBACK_AT" property="feedbackAt" jdbcType="TIMESTAMP"/>
+        <result column="FEEDBACK_BY" property="feedbackBy" jdbcType="VARCHAR"/>
+        <result column="CREATE_AT" property="createAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.mpe.portal.web.resources.modules.ResMessage" extends="BaseResultMap">
+        <result column="MESSAGE" property="message" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     ID, NAME, MOBILE, EMAIL, MESSAGE_AT, FEEDBACK, FEEDBACK_AT, FEEDBACK_BY, CREATE_AT
   </sql>
-  <sql id="Blob_Column_List" >
+    <sql id="Blob_Column_List">
     MESSAGE
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from RES_MESSAGE
-    where ID = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from RES_MESSAGE
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from RES_MESSAGE
     where ID = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.mpe.portal.web.resources.modules.ResMessage" >
+    <insert id="insert" parameterType="com.mpe.portal.web.resources.modules.ResMessage">
     insert into RES_MESSAGE (ID, NAME, MOBILE, 
       EMAIL, MESSAGE_AT, FEEDBACK, 
       FEEDBACK_AT, FEEDBACK_BY, CREATE_AT, 
@@ -43,107 +43,107 @@
       #{feedbackAt,jdbcType=TIMESTAMP}, #{feedbackBy,jdbcType=VARCHAR}, #{createAt,jdbcType=TIMESTAMP}, 
       #{message,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mpe.portal.web.resources.modules.ResMessage" >
-    insert into RES_MESSAGE
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
-      <if test="name != null" >
-        NAME,
-      </if>
-      <if test="mobile != null" >
-        MOBILE,
-      </if>
-      <if test="email != null" >
-        EMAIL,
-      </if>
-      <if test="messageAt != null" >
-        MESSAGE_AT,
-      </if>
-      <if test="feedback != null" >
-        FEEDBACK,
-      </if>
-      <if test="feedbackAt != null" >
-        FEEDBACK_AT,
-      </if>
-      <if test="feedbackBy != null" >
-        FEEDBACK_BY,
-      </if>
-      <if test="createAt != null" >
-        CREATE_AT,
-      </if>
-      <if test="message != null" >
-        MESSAGE,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null" >
-        #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="messageAt != null" >
-        #{messageAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="feedback != null" >
-        #{feedback,jdbcType=VARCHAR},
-      </if>
-      <if test="feedbackAt != null" >
-        #{feedbackAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="feedbackBy != null" >
-        #{feedbackBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createAt != null" >
-        #{createAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="message != null" >
-        #{message,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mpe.portal.web.resources.modules.ResMessage" >
-    update RES_MESSAGE
-    <set >
-      <if test="name != null" >
-        NAME = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null" >
-        MOBILE = #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        EMAIL = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="messageAt != null" >
-        MESSAGE_AT = #{messageAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="feedback != null" >
-        FEEDBACK = #{feedback,jdbcType=VARCHAR},
-      </if>
-      <if test="feedbackAt != null" >
-        FEEDBACK_AT = #{feedbackAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="feedbackBy != null" >
-        FEEDBACK_BY = #{feedbackBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createAt != null" >
-        CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="message != null" >
-        MESSAGE = #{message,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mpe.portal.web.resources.modules.ResMessage" >
+    <insert id="insertSelective" parameterType="com.mpe.portal.web.resources.modules.ResMessage">
+        insert into RES_MESSAGE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="name != null">
+                NAME,
+            </if>
+            <if test="mobile != null">
+                MOBILE,
+            </if>
+            <if test="email != null">
+                EMAIL,
+            </if>
+            <if test="messageAt != null">
+                MESSAGE_AT,
+            </if>
+            <if test="feedback != null">
+                FEEDBACK,
+            </if>
+            <if test="feedbackAt != null">
+                FEEDBACK_AT,
+            </if>
+            <if test="feedbackBy != null">
+                FEEDBACK_BY,
+            </if>
+            <if test="createAt != null">
+                CREATE_AT,
+            </if>
+            <if test="message != null">
+                MESSAGE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="messageAt != null">
+                #{messageAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="feedback != null">
+                #{feedback,jdbcType=VARCHAR},
+            </if>
+            <if test="feedbackAt != null">
+                #{feedbackAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="feedbackBy != null">
+                #{feedbackBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createAt != null">
+                #{createAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="message != null">
+                #{message,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mpe.portal.web.resources.modules.ResMessage">
+        update RES_MESSAGE
+        <set>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                MOBILE = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                EMAIL = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="messageAt != null">
+                MESSAGE_AT = #{messageAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="feedback != null">
+                FEEDBACK = #{feedback,jdbcType=VARCHAR},
+            </if>
+            <if test="feedbackAt != null">
+                FEEDBACK_AT = #{feedbackAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="feedbackBy != null">
+                FEEDBACK_BY = #{feedbackBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createAt != null">
+                CREATE_AT = #{createAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="message != null">
+                MESSAGE = #{message,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mpe.portal.web.resources.modules.ResMessage">
     update RES_MESSAGE
     set NAME = #{name,jdbcType=VARCHAR},
       MOBILE = #{mobile,jdbcType=VARCHAR},
@@ -156,7 +156,7 @@
       MESSAGE = #{message,jdbcType=LONGVARCHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mpe.portal.web.resources.modules.ResMessage" >
+    <update id="updateByPrimaryKey" parameterType="com.mpe.portal.web.resources.modules.ResMessage">
     update RES_MESSAGE
     set NAME = #{name,jdbcType=VARCHAR},
       MOBILE = #{mobile,jdbcType=VARCHAR},
@@ -168,4 +168,60 @@
       CREATE_AT = #{createAt,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+    <!-- 按条件查询-分页查询? @param Map 如果Map包含pageNo和pageSize 则就是条件分页查询,否则就是条件查询 -->
+    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from RES_MESSAGE
+        <where>
+            1=1
+            <if test="name != null and name != '' ">
+                AND INSTR(NAME,#{name})>0
+            </if>
+            <if test="mobile != null and mobile != '' ">
+                AND INSTR(MOBILE,#{mobile})>0
+            </if>
+            <if test="email != null and email != '' ">
+                AND INSTR(EMAIL,#{email})>0
+            </if>
+            <if test="feedbackBy != null and feedbackBy != '' ">
+                AND INSTR(FEEDBACK_BY,#{feedbackBy})>0
+            </if>
+            <if test="messageAt_startAt != null and messageAt_startAt != '' and messageAt_endAt != null and messageAt_endAt != ''">
+                AND MESSAGE_AT BETWEEN #{messageAt_startAt} AND #{messageAt_endAt}
+            </if>
+        </where>
+        <if test="orderColumnNameAndDir != null and orderColumnNameAndDir != '' ">
+            ORDER BY ${orderColumnNameAndDir}
+        </if>
+        <if test="pageNo != null and pageSize != null">
+            limit #{pageNo,jdbcType=BIGINT},#{pageSize,jdbcType=BIGINT}
+        </if>
+    </select>
+
+    <!-- 按条件查询总数量 @param Map -->
+    <select id="countByCondition" parameterType="java.util.Map" resultType="int">
+        select count(ID) from RES_MESSAGE
+        <where>
+            1=1
+            <if test="name != null and name != '' ">
+                AND INSTR(NAME,#{name})>0
+            </if>
+            <if test="mobile != null and mobile != '' ">
+                AND INSTR(MOBILE,#{mobile})>0
+            </if>
+            <if test="email != null and email != '' ">
+                AND INSTR(EMAIL,#{email})>0
+            </if>
+            <if test="feedbackBy != null and feedbackBy != '' ">
+                AND INSTR(FEEDBACK_BY,#{feedbackBy})>0
+            </if>
+            <if test="messageAt_startAt != null and messageAt_startAt != '' and messageAt_endAt != null and messageAt_endAt != ''">
+                AND MESSAGE_AT BETWEEN #{messageAt_startAt} AND #{messageAt_endAt}
+            </if>
+        </where>
+    </select>
+
 </mapper>

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.util.*;
 
 
 @Scope("prototype")
@@ -22,10 +22,30 @@ public class MessageController extends BaseController {
     //
     private IMessageService messageService = null;
 
-    @Resource(name = "IMessageServiceImpl")
+    @Resource(name = "MessageServiceImpl")
     public void setService(IMessageService service) {
         this.messageService = service;
     }
+
+    public void listTableData() throws Exception {
+        HashMap<String, String> paramsMap = this.getParameterMap();
+        //
+        String draw = paramsMap.get("draw");
+        long resourceCount = messageService.countByCondition(paramsMap);
+        List<HashMap<String, String>> viewDataList = null;
+        if (resourceCount == 0) {
+            viewDataList = new ArrayList<HashMap<String, String>>();
+        } else {
+            viewDataList = messageService.selectByCondition(paramsMap);
+        }
+        //
+        String rowsMessage = this.buildDataTablesRowData(viewDataList, resourceCount, draw);
+        //_PageUtil.WriteReponseText(response, result);
+        //将查询结果推送回去
+        this.pushBackToClient(rowsMessage);
+
+    }
+
 
     /**
      * 保存留言
@@ -122,7 +142,7 @@ public class MessageController extends BaseController {
         return "";
     }
 
-    public String removeMessage(){
+    public String remove() {
         return "";
     }
 }

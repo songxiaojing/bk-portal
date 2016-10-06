@@ -1,6 +1,7 @@
 package com.mpe.portal.web.filter;
 
 
+import com.mpe.portal.web.resources.modules.MetricWebVisitRecord;
 import com.mpe.portal.web.services.IApplicationService;
 import com.mpe.portal.web.utils.Assert;
 import com.mpe.portal.web.utils.app.AppServletContextUtils;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -72,7 +74,13 @@ public class VisitMonitorFilter implements Filter {
      * @return
      */
     private void recordVisit(HttpServletRequest request) {
+        IApplicationService service = (IApplicationService) AppServletContextUtils.getSpringApplicationContext().getBean("ApplicationServiceImpl");
+        if (service != null) {
 
+            //
+
+            service.recordVisitItem(request);
+        }
         theLogger.info("Visit Monitor>>" + request.getServletPath());
     }
 }

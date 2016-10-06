@@ -21,8 +21,12 @@ public class MessageView extends BaseController {
     //
     private IMessageService messageService = null;
 
-    @Resource(name = "IMessageServiceImpl")
+    @Resource(name = "MessageServiceImpl")
     public void setService(IMessageService service) {
         this.messageService = service;
+    }
+
+    public String list() {
+        return "list";
     }
 }

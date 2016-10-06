@@ -28,4 +28,8 @@ public class NewsView extends BaseController {
     public String dashboardView() {
         return "dashboardView";
     }
+
+    public String list() {
+        return "list";
+    }
 }

@@ -192,10 +192,10 @@
             <h3>在线留言</h3>
             <hr>
             <div class="row">
-                <div class="col-md-12">
-                    <section id="companyImportSection">
-                        <form class="form-horizontal" id="registerWebUserForm" action="/message/message.recordMessage.action" method="post"
-                              enctype="multipart/form-data" target="_blank">
+                <form class="form-horizontal" id="registerWebUserForm" action="/message/message.recordMessage.action" method="post"
+                      enctype="multipart/form-data" target="_blank">
+                    <div class="col-md-12">
+                        <section id="companyImportSection">
                             <div class="form-group">
                                 <label for="mobile" class="col-sm-3 control-label">手机号码:</label>
                                 <div class="col-sm-7">
@@ -215,7 +215,6 @@
                                 <div class="col-sm-7 ">
                                     <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱">
                                     <span class="help-block"></span>
-                                    <span></span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -225,16 +224,18 @@
                                     <span class="help-block"></span>
                                 </div>
                             </div>
-                        </form>
-                        <div class="form-group">
-                            <div class="col-sm-offset-3 col-sm-5">
-                                <button type="button" class="btn btn-success btn-block btn-fill" onclick="javascript:void(0)">提交</button>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-5">
+                                    <button type="button" class="btn btn-success btn-block btn-fill" onclick="submitMessageForm(registerWebUserForm)">提交</button>
+                                </div>
                             </div>
-                        </div>
-                    </section>
-                </div>
+                        </section>
+                    </div>
+                </form>
             </div>
-            <div class="space"></div>
+        </div>
+        <div class="space"></div>
     </section>
 </div>
 <!-- end main -->
@@ -275,7 +276,71 @@
 <script src="../plugins/gsdk/assets/js/gsdk-radio.js"></script>
 <script src="../plugins/gsdk/assets/js/gsdk-bootstrapswitch.js"></script>
 <script src="../plugins/gsdk/assets/js/get-done.js"></script>
+<script src="../js/form-validate.js"></script>
 <script type="text/javascript">
+    function submitMessageForm(targetForm) {
+
+        try {
+            if (targetForm == null) {
+                showAlertMessage("无效的表单");
+                return;
+            }
+            var isSubmit = true;
+            //
+            var mobileElement = document.getElementById("mobile");
+            clearErrorOnFormElement(mobileElement);
+            //is empty or not
+            if (validateRequired(mobileElement.value) == false) {
+                //empty
+                isSubmit = false;
+                showErrorOnFormElement(mobileElement, "不能为空");
+            } else if (validateMobile(mobileElement.value) == false) {
+                //is not empty
+                isSubmit = false;
+                showErrorOnFormElement(mobileElement, "请输入一个正确的手机号");
+            }
+            //
+            var nameElement = document.getElementById("name");
+            clearErrorOnFormElement(nameElement);
+            if (validateRequired(nameElement.value) == false) {
+                //empty
+                isSubmit = false;
+                showErrorOnFormElement(nameElement, "不能为空");
+            }
+            //
+            var emailElement = document.getElementById("email");
+            clearErrorOnFormElement(emailElement);
+            if (validateRequired(emailElement.value) == false) {
+                //empty
+                isSubmit = false;
+                showErrorOnFormElement(emailElement, "不能为空");
+            }else if(validateEMail(emailElement.value) == false){
+                isSubmit = false;
+                showErrorOnFormElement(emailElement, "请输入一个正确的邮件地址，例如：yourname@163.com");
+            }
+            //
+            var messageElement = document.getElementById("message");
+            clearErrorOnFormElement(messageElement);
+            if (validateRequired(messageElement.value) == false) {
+                //empty
+                isSubmit = false;
+                showErrorOnFormElement(messageElement, "不能为空");
+            }//
+
+            if (isSubmit == true) {
+                targetForm.submit();
+            }
+
+        } catch (e) {
+            alert(e);
+        }
+
+
+
+
+
+
+    }
 </script>
 </body>
 </html>

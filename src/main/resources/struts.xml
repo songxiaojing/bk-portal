@@ -53,11 +53,14 @@
         </global-exception-mappings>
         <action name="login" class="UserLogController" method="login">
             <result name="loginView">/sigin.jsp</result>
-            <result name="centerView" type="redirect">/center/dashboard.dashboardView.action</result>
+            <result name="centerView" type="redirect">/center/dashboardView.dashboardView.action</result>
         </action>
         <!-- 网站用户登出模块 -->
         <action name="logout" class="UserLogController" method="logout">
             <result name="loginView" type="redirect">/sigin.jsp</result>
+        </action>
+        <!-- 网站用户登出模块 -->
+        <action name="table.*" class="TableController" method="{1}">
         </action>
     </package>
     <!-- message -->
@@ -72,6 +75,7 @@
             <exception-mapping exception="java.lang.Exception" result="exception"/>
         </global-exception-mappings>
         <action name="messageView.*" class="MessageView" method="{1}">
+            <result name="list">/WEB-INF/jsp/center/resMessageList.jsp</result>
         </action>
         <action name="message.*" class="MessageController" method="{1}">
             <result name="servicePage">/service/service.html</result>
@@ -89,6 +93,7 @@
             <exception-mapping exception="java.lang.Exception" result="exception"/>
         </global-exception-mappings>
         <action name="newsView.*" class="NewsView" method="{1}">
+            <result name="list">/WEB-INF/jsp/center/resNewsList.jsp</result>
         </action>
         <action name="news.*" class="NewsController" method="{1}">
         </action>
@@ -106,6 +111,7 @@
         <!-- 个人中心主面板模块 -->
         <action name="dashboardView.*" class="DashboardView" method="{1}">
             <result name="dashboardView">/WEB-INF/jsp/center/dashboardView.jsp</result>
+            <result name="visit">/WEB-INF/jsp/center/visit.jsp</result>
         </action>
     </package>
 

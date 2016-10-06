@@ -15,7 +15,11 @@ public class DashboardView extends BaseController {
      * @return String
      */
     public String dashboardView() {
-
+        this.getRequest().setAttribute("currentUser", this.getCurrentSysUser());
         return "dashboardView";
+    }
+
+    public String visit(){
+        return "visit";
     }
 }

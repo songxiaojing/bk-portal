@@ -7,6 +7,8 @@ import com.mpe.portal.web.utils.UploadFile;
 import com.mpe.portal.web.utils.app.AppReferent;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,6 @@ public abstract class BaseController {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return "操作时间：" + dateFormatter.format(new Date());
     }
-
 
 
     public HttpSession getHttpSession() {
@@ -212,29 +213,7 @@ public abstract class BaseController {
 
         return formInputMap;
     }
-    /**
-     * 将资源list和总数量组成JSON串,返回前台进行解析
-     *
-     * @param resourceDataList 资源list
-     * @param resourceCount    总数量
-     * @return
-     * @throws Exception
-     */
-//    protected String buildPageTableRowData(List<? extends AbstractResourceBean> resourceDataList, long resourceCount) throws Exception {
-//
-//        ResourceModuleService resourceService = ServiceHelper.findService(ResourceModuleService.class);
-//
-//        JSONObject rowsDataJSONObj = new JSONObject();
-//        rowsDataJSONObj.put("total", resourceCount);
-//        JSONArray dataArray = new JSONArray();
-//        if (resourceDataList != null && resourceDataList.isEmpty() == false) {
-//            for (AbstractResourceBean bean : resourceDataList) {
-//                dataArray.put(resourceService.getAttributeMapForDataGrid(bean, false, true));
-//            }
-//        }
-//        rowsDataJSONObj.put("rows", dataArray);
-//        return rowsDataJSONObj.toString();
-//    }
+
 
     /**
      * 生成DataTables需要的JSON数据.
@@ -245,23 +224,25 @@ public abstract class BaseController {
      * @return
      * @throws Exception
      */
-//    protected String buildDataTablesRowData(List<? extends AbstractResourceBean> resourceDataList, long resourceCount, String draw) throws Exception {
-//
-//        ResourceModuleService resourceService = ServiceHelper.findService(ResourceModuleService.class);
-//
-//        JSONObject rowsDataJSONObj = new JSONObject();
-//        JSONArray dataArray = new JSONArray();
-//        if (resourceDataList != null && resourceDataList.isEmpty() == false) {
-//            for (AbstractResourceBean bean : resourceDataList) {
-//                dataArray.put(resourceService.getAttributeMapForDataGrid(bean, false, true));
-//            }
-//        }
-//        rowsDataJSONObj.put("draw", draw);
-//        rowsDataJSONObj.put("recordsTotal", resourceCount);
-//        rowsDataJSONObj.put("recordsFiltered", resourceCount);
-//        rowsDataJSONObj.put("module", dataArray);
-//        return rowsDataJSONObj.toString();
-//    }
+    protected String buildDataTablesRowData(List<HashMap<String, String>> resourceDataList, long resourceCount, String draw) throws Exception {
+
+        //ResourceModuleService resourceService = ServiceHelper.findService(ResourceModuleService.class);
+
+        JSONObject rowsDataJSONObj = new JSONObject();
+        JSONArray dataArray = new JSONArray();
+        if (resourceDataList != null && resourceDataList.isEmpty() == false) {
+            for (HashMap<String, String> attributeMap : resourceDataList) {
+                dataArray.put(attributeMap);
+            }
+        }
+        rowsDataJSONObj.put("draw", draw);
+        rowsDataJSONObj.put("recordsTotal", resourceCount);
+        rowsDataJSONObj.put("recordsFiltered", resourceCount);
+        rowsDataJSONObj.put("data", dataArray);
+        return rowsDataJSONObj.toString();
+        //
+
+    }
 
     /**
      * 取得当前用户.

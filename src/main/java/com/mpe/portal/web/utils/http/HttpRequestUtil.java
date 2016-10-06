@@ -1,6 +1,7 @@
 package com.mpe.portal.web.utils.http;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.Properties;
 
 
@@ -72,7 +73,21 @@ public class HttpRequestUtil {
         return isEffective;
     }
 
+    /**
+     * 取得http headers
+     * @param request
+     * @return
+     */
     public static Properties getHttpHeader(HttpServletRequest request) {
-        return new Properties();
+        if (request == null) {
+            return new Properties();
+        }
+        Properties headerProperties = new Properties();
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String keyName = headerNames.nextElement();
+            headerProperties.setProperty(keyName, request.getHeader(keyName));
+        }
+        return headerProperties;
     }
 }

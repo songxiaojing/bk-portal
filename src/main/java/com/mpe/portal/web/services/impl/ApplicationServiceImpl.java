@@ -4,6 +4,7 @@ package com.mpe.portal.web.services.impl;
 import com.mpe.portal.web.resources.daos.MetricLoginRecordMapper;
 import com.mpe.portal.web.resources.daos.MetricWebVisitRecordMapper;
 import com.mpe.portal.web.resources.modules.MetricLoginRecord;
+import com.mpe.portal.web.resources.modules.MetricWebVisitRecord;
 import com.mpe.portal.web.services.BaseService;
 import com.mpe.portal.web.services.IApplicationService;
 import com.mpe.portal.web.utils.Assert;
@@ -22,7 +23,9 @@ import java.util.Properties;
 
 @Service("ApplicationServiceImpl")
 public class ApplicationServiceImpl extends BaseService implements IApplicationService {
+    //
     final private static Logger theLogger = LoggerFactory.getLogger(ApplicationServiceImpl.class);
+    //
     final private static String USER_FILE_PATH = "users.properties";
     //
     private MetricLoginRecordMapper metricLoginRecordMapper = null;
@@ -62,6 +65,7 @@ public class ApplicationServiceImpl extends BaseService implements IApplicationS
         if (request == null || Assert.isEmptyString(mobile)) {
             return null;
         }
+        //create login record instance
         MetricLoginRecord metricLoginRecord = new MetricLoginRecord();
         Date currentDate = new Date();
         metricLoginRecord.setCreateAt(currentDate);
@@ -75,10 +79,9 @@ public class ApplicationServiceImpl extends BaseService implements IApplicationS
         metricLoginRecord.setHttpHead(HttpRequestUtil.getHttpHeader(request).toString());
         metricLoginRecord.setUserAgent(HttpRequestUtil.getUserAgent(request));
         metricLoginRecord.setUserName(mobile);
-        this.metricWebVisitRecordMapper.selectByPrimaryKey(1L);
-        this.metricLoginRecordMapper.selectByPrimaryKey(1L);
+        //
         this.metricLoginRecordMapper.insertSelective(metricLoginRecord);
-
+        theLogger.info("Record user[" + mobile + "] login.");
         return metricLoginRecord;
     }
 
@@ -88,6 +91,28 @@ public class ApplicationServiceImpl extends BaseService implements IApplicationS
             return;
         }
         this.metricLoginRecordMapper.updateByPrimaryKeySelective(sysUserLoginRecord);
+    }
+
+    @Override
+    public void recordVisitItem(HttpServletRequest request) {
+        if (request == null) {
+            return;
+        }
+
+        Date currentDate = new Date();
+        MetricWebVisitRecord metricWebVisitRecord = new MetricWebVisitRecord();
+        metricWebVisitRecord.setCreateAt(currentDate);
+        try {
+            metricWebVisitRecord.setRemoteIp(HttpRequestUtil.getRemoteAddr(request));
+        } catch (Exception e) {
+            metricWebVisitRecord.setRemoteIp(request.getRemoteAddr());
+        }
+        metricWebVisitRecord.setHttpHead(HttpRequestUtil.getHttpHeader(request).toString());
+        metricWebVisitRecord.setVisitReferent(request.getHeader("Referer"));
+        metricWebVisitRecord.setVisitAt(currentDate);
+        metricWebVisitRecord.setVisitTarget(request.getServletPath());
+        metricWebVisitRecord.setUserAgent(HttpRequestUtil.getUserAgent(request));
+        this.metricWebVisitRecordMapper.insertSelective(metricWebVisitRecord);
     }
 
 }
