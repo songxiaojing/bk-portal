@@ -183,8 +183,6 @@
     <select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
         from RES_NEWS
         <where>
             1=1
@@ -232,6 +230,23 @@
             <if test="publishAt_startAt != null and publishAt_startAt != '' and publishAt_endAt != null and publishAt_endAt != ''">
                 AND PUBLISH_AT BETWEEN #{publishAt_startAt} AND #{publishAt_endAt}
             </if>
+        </where>
+    </select>
+    <!-- 根据ID批量删除 -->
+    <delete id="deleteByIds" parameterType="java.lang.Long">
+        delete from RES_NEWS
+        WHERE ID IN
+        <foreach item="ids" collection="array" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <select id="selectNewsBodyById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Blob_Column_List"/>
+        from RES_NEWS
+        <where>
+            ID=#{id}
         </where>
     </select>
 

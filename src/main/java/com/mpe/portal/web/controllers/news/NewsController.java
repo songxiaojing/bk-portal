@@ -2,18 +2,23 @@ package com.mpe.portal.web.controllers.news;
 
 
 import com.mpe.portal.web.controllers.BaseController;
-import com.mpe.portal.web.resources.modules.ResMessage;
 import com.mpe.portal.web.resources.modules.ResNews;
 import com.mpe.portal.web.services.INewsService;
 import com.mpe.portal.web.utils.Assert;
+import com.mpe.portal.web.utils.HttpContentType;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Scope("prototype")
 @Controller("NewsController")
@@ -28,7 +33,7 @@ public class NewsController extends BaseController {
         this.newsService = service;
     }
 
-    public String publishNews() throws Exception{
+    public String publishNews() throws Exception {
         //
         HttpServletRequest request = this.getRequest();
         try {
@@ -75,25 +80,34 @@ public class NewsController extends BaseController {
         }
     }
 
-    public String removeNews() throws Exception{
-        HttpServletRequest request = this.getRequest();
-        try {
-
-            String resNewsId = request.getParameter("resNewsId");
-            if (Assert.isEmptyString("resNewsId")) {
-                this.setForwardMessage("新闻id无效");
-                return "message";
-            }
-
-            //
-            int result = newsService.removeResNews(Long.parseLong(resNewsId));
-            if (result > 0) {
-                this.setForwardMessage("删除新闻成功");
-            }
-            theLogger.info("Remove news id:" + resNewsId);
-            return "message";
-        } catch (Exception e) {
-            throw e;
+    public void removeNews() throws Exception {
+        String ids = getRequest().getParameter("ids");
+        if (Assert.isEmptyString(ids)) {
+            throw new Exception("删除新闻记录id无效");
         }
+        int result = this.newsService.deleteByIds(ids);
+        JSONObject resultObj = new JSONObject();
+        resultObj.put("message", "成功删除消息 " + result + " 条");
+        this.pushBackToClient(HttpStatus.OK, HttpContentType.JSON, resultObj.toString());
+        
+    }
+
+    public void listTableData() throws Exception {
+        HashMap<String, String> paramsMap = this.getParameterMap();
+        //
+        String draw = paramsMap.get("draw");
+        long resourceCount = newsService.countByCondition(paramsMap);
+        List<HashMap<String, String>> viewDataList = null;
+        if (resourceCount == 0) {
+            viewDataList = new ArrayList<HashMap<String, String>>();
+        } else {
+            viewDataList = newsService.selectByCondition(paramsMap);
+        }
+        //
+        String rowsMessage = this.buildDataTablesRowData(viewDataList, resourceCount, draw);
+        //_PageUtil.WriteReponseText(response, result);
+        //将查询结果推送回去
+        this.pushBackToClient(rowsMessage);
+
     }
 }

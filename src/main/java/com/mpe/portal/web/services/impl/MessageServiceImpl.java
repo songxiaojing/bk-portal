@@ -4,6 +4,7 @@ import com.mpe.portal.web.resources.daos.ResMessageMapper;
 import com.mpe.portal.web.resources.modules.ResMessage;
 import com.mpe.portal.web.services.IMessageService;
 import com.mpe.portal.web.utils.Assert;
+import com.mpe.portal.web.utils.datatable.DataTablePagationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.Map;
 @Service("MessageServiceImpl")
 public class MessageServiceImpl implements IMessageService {
 
-    final private static String INPUT_DATE_FORMATTOR = "yyyy-MM-dd";
+
     final private static String TABLE_DATE_FORMATTOR = "yyyy-MM-dd hh:mm:ss";
     final private static Logger theLogger = LoggerFactory.getLogger(MessageServiceImpl.class);
 
@@ -53,7 +54,7 @@ public class MessageServiceImpl implements IMessageService {
     public int countByCondition(HashMap<String, String> paramsMap) {
 
         try {
-            return this.resMessageMapper.countByCondition(buildSelectConditionMap(paramsMap));
+            return this.resMessageMapper.countByCondition(DataTablePagationUtil.buildSelectConditionMap(paramsMap));
         } catch (ParseException e) {
             theLogger.error("countByCondition", e);
         }
@@ -63,7 +64,7 @@ public class MessageServiceImpl implements IMessageService {
     @Override
     public List<HashMap<String, String>> selectByCondition(HashMap<String, String> paramsMap) {
         try {
-            List<ResMessage> selectList = this.resMessageMapper.selectByCondition(buildSelectConditionMap(paramsMap));
+            List<ResMessage> selectList = this.resMessageMapper.selectByCondition(DataTablePagationUtil.buildSelectConditionMap(paramsMap));
             ArrayList<HashMap<String, String>> tabDataList = new ArrayList<HashMap<String, String>>();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(TABLE_DATE_FORMATTOR);
             for (ResMessage resMessage : selectList) {
@@ -117,46 +118,5 @@ public class MessageServiceImpl implements IMessageService {
         return this.resMessageMapper.deleteByIds(ids);
     }
 
-    private Map<String, Object> buildSelectConditionMap(HashMap<String, String> conditionMap) throws ParseException {
-        try {
-            //
-
-
-            // theLogger.debug("get Bean:" + beanContext.getBean(targetMapperClass).hashCode());
-            //计算分页长度
-            int pageNumber = Integer.parseInt(conditionMap.get("start"));
-            int pageSize = Integer.parseInt(conditionMap.get("length"));
-            pageNumber = pageNumber - 1;
-            if (pageNumber < 0) {
-                pageNumber = 0;
-            }
-            pageNumber = pageNumber * pageSize;
-            theLogger.debug("#query conditon condionMap:" + conditionMap.toString());
-            // 将Map<String,String>转变 Map<String,Object> 并设置pageNo和pageSize
-            Map<String, Object> changeMap = new HashMap<String, Object>();
-            for (String name : conditionMap.keySet()) {
-                String value = conditionMap.get(name);
-                Object newValues = null;
-                if (name.contains("_startAt") || name.contains("_endAt")) {
-                    if (Assert.isEmptyString(value) == false) {
-                        SimpleDateFormat yyyyMMdd = new SimpleDateFormat(INPUT_DATE_FORMATTOR);
-                        newValues = yyyyMMdd.parse(value);
-                    }
-                } else {
-                    newValues = value;
-                }
-                changeMap.put(name, newValues);
-            }
-            changeMap.put("pageNo", pageNumber);
-            changeMap.put("pageSize", pageSize);
-
-            theLogger.debug("#query conditon changeMap:" + changeMap.toString());
-
-            return changeMap;
-
-        } catch (Exception e) {
-            throw e;
-        }
-    }
 
 }

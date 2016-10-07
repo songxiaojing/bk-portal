@@ -62,6 +62,8 @@
         <!-- 网站用户登出模块 -->
         <action name="table.*" class="TableController" method="{1}">
         </action>
+        <action name="visit.*" class="VisitController" method="{1}">
+        </action>
     </package>
     <!-- message -->
     <package name="message" namespace="/message" extends="struts-default,json-default">
@@ -95,6 +97,7 @@
         </global-exception-mappings>
         <action name="newsView.*" class="NewsView" method="{1}">
             <result name="list">/WEB-INF/jsp/center/resNewsList.jsp</result>
+            <result name="detail">/WEB-INF/jsp/center/resNewsDetail.jsp</result>
         </action>
         <action name="news.*" class="NewsController" method="{1}">
         </action>

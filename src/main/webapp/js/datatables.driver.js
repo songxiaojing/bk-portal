@@ -584,7 +584,7 @@ function resNewsDetailRender(value, type, row, index) {
     var left = (window.screen.availWidth - 10 - width) / 2; // 获得窗口的水平位置;
     var windowParam = "height=" + heigth + ", width=" + width + ", top=" + top + ",left=" + left + ", toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no";
 
-    var url = basePath + "event/historyEvent.historyDetailView.action?id=" + row.id;
+    var url = basePath + "news/newsView.detail.action?id=" + row.id;
     return "<a href='javascript:void(0);' onclick=\"javascript:window.open('" + url + "', 'null', '" + windowParam + "');\">" + value + "</a>";
 }
 

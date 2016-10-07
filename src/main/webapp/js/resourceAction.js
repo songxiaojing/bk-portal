@@ -74,6 +74,22 @@ function showAjaxResultDialog(targetUrl) {
 }
 
 /**
+ * 文件下载
+ */
+function downResource(uuid) {
+    try {
+        if (uuid == "") {
+            alert("文件下载ID不能为null!");
+            return;
+        }
+        var targetUrl = basePath + "/application/download.downloadAttachmentByUuid.action?uuid=" + encodeURIComponent(uuid);
+        window.location.href = targetUrl;
+    } catch (e) {
+        alert(e);
+    }
+}
+
+/**
  * 删除留言
  */
 function removeMessage() {
@@ -93,7 +109,7 @@ function removeMessage() {
             }
             $.messager.confirm('提示信息', selectDate, function () {
                 var postData = {};
-                postData["className"] = className;
+                //postData["className"] = className;
                 postData["ids"] = ids.join(',');
                 $.ajax({
                     type: "POST",
@@ -112,19 +128,6 @@ function removeMessage() {
         alert(e);
     }
 }
-// 文件下载
-function downResource(uuid) {
-    try {
-        if (uuid == "") {
-            alert("文件下载ID不能为null!");
-            return;
-        }
-        var targetUrl = basePath + "/application/download.downloadAttachmentByUuid.action?uuid=" + encodeURIComponent(uuid);
-        window.location.href = targetUrl;
-    } catch (e) {
-        alert(e);
-    }
-}
 
 
 /**
@@ -138,38 +141,38 @@ function resMessageFeedback() {
             $.messager.alert('提示信息', '请选择一条消息!', 'warning');
             return;
         } else {
-            showModalDialog("/message/messageView.detail.action?id=" + rows[0].id, "出账确认");
+            showModalDialog("/message/messageView.detail.action?id=" + rows[0].id, "反馈留言");
         }
     } catch (e) {
         alert(e);
     }
 }
-//////////////////
+
 /**
- * 作废资源
+ * 删除新闻
  */
-function terminateSelfResource() {
+function removeResNews() {
     try {
         var ids = [];
         var rows = getSelectedRowData();
 
         if (rows.length == 0) {
-            $.messager.alert('提示信息', '请选择一条数据!');
+            $.messager.alert('提示信息', '请选择需要删除的新闻记录!');
             return;
         } else {
             var columns = getCurrentTableColumns();
             var selectDate = "";
             for (var i = 0; i < rows.length; i++) {
                 ids.push(rows[i].id);
-                selectDate += "作废 :" + rows[i][columns[2]["data"]] + "<br>";
+                selectDate += "删除 :" + rows[i][columns[2]["data"]] + "<br>";
             }
             $.messager.confirm('提示信息', selectDate, function () {
                 var postData = {};
-                postData["className"] = className;
+                //postData["className"] = className;
                 postData["ids"] = ids.join(',');
                 $.ajax({
                     type: "POST",
-                    url: basePath + "resource/resource.terminateResource.action",
+                    url: "/news/news.removeNews.action",
                     cache: false,
                     data: postData,
                     dataType: "json",
@@ -184,6 +187,45 @@ function terminateSelfResource() {
         alert(e);
     }
 }
+/**
+ * 发布新闻
+ */
+function resNewsPublish() {
+    try {
+        var rows = getSelectedRowData();
+
+        if (rows.length == 0 || rows.length > 1) {
+            $.messager.alert('提示信息', '请选择一条消息!', 'warning');
+            return;
+        } else {
+            showModalDialog("/news/newsView.publishResNews.action?id=" + rows[0].id, "发布新闻");
+        }
+    } catch (e) {
+        alert(e);
+    }
+}
+
+/**
+ * 新闻预览
+ */
+function resNewsDetail() {
+    try {
+        var rows = getSelectedRowData();
+
+        if (rows.length == 0 || rows.length > 1) {
+            $.messager.alert('提示信息', '请选择一条新闻预览!', 'warning');
+            return;
+        } else {
+            showModalDialog("/news/newsView.detail.action?id=" + rows[0].id, "新闻预览");
+        }
+    } catch (e) {
+        alert(e);
+    }
+}
+
+////
+////
+////
 /**
  * 申请股票账户
  */
@@ -223,6 +265,8 @@ function fn_applyStockAccountUSA() {
         alert(e);
     }
 }
+
+//////////////////
 /**
  * 废除客户信息
  */
