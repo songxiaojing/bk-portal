@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.mpe.portal.web.utils.WebText" %>
 <%
 %>
 <!DOCTYPE html>
@@ -19,7 +20,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/favicon.ico">
 
-    <title>梧桐证券-个人中心-我的账户</title>
+    <title><%=WebText.WEB_TITLE%></title>
 
     <!-- Bootstrap core CSS     -->
     <link href="/plugins/lbd/css/bootstrap.min.css" rel="stylesheet"/>

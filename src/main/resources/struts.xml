@@ -64,6 +64,9 @@
         </action>
         <action name="visit.*" class="VisitController" method="{1}">
         </action>
+        <action name="applicationView.*" class="ApplicationView" method="{1}">
+            <result name="help">/WEB-INF/jsp/center/help.jsp</result>
+        </action>
     </package>
     <!-- message -->
     <package name="message" namespace="/message" extends="struts-default,json-default">

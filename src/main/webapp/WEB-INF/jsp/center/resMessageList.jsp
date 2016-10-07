@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.mpe.portal.web.utils.AppPathHelp" %>
+<%@ page import="com.mpe.portal.web.utils.WebText" %>
 <%--
   Created by IntelliJ IDEA.
   User: byw-m
@@ -20,7 +21,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/favicon.ico">
-    <title>梧桐证券-个人中心-我的邀请</title>
+    <title><%=WebText.WEB_TITLE%></title>
     <!-- Bootstrap core CSS     -->
 
     <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>

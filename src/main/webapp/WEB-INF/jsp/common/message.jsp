@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="com.mpe.portal.web.utils.WebText" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
 	<meta name="author" content="">
 	<link rel="icon" href="/favicon.ico">
 
-	<title>梧桐证券-个人中心-消息</title>
+	<title><%=WebText.WEB_TITLE%></title>
 
 	<!-- Bootstrap core CSS     -->
 	<link href="/plugins/lbd/css/bootstrap.min.css" rel="stylesheet"/>

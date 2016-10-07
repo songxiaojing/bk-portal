@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page import="com.mpe.portal.web.utils.WebText" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +18,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>网站后台管理系统</title>
+    <title><%=WebText.WEB_TITLE%></title>
 
     <!-- Bootstrap core CSS -->
     <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@
         <input type="text" id="mobile" name="mobile" class="form-control" placeholder="请输入手机号" required autofocus>
         <label for="password" class="sr-only">密码</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="密码" required>
-
+        <p class="text-right">忘记密码请联系管理员重置</p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
 
     </form>

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.mpe.portal.web.utils.WebText" %>
 <%
     String currentUser = (String) request.getAttribute("currentUser");
 %>
@@ -16,7 +17,7 @@
     <link rel="icon" type="image/png" href="/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-    <title>MPE-网站后台管理</title>
+    <title><%=WebText.WEB_TITLE%></title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
@@ -75,7 +76,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/application/logout.action" target="content">
+                    <a href="/application/applicationView.helpView.action" target="content">
+                        <i class="pe-7s-help1"></i>
+                        <p>帮助</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/application/logout.action" target="_self">
                         <i class="pe-7s-power"></i>
                         <p>退出</p>
                     </a>

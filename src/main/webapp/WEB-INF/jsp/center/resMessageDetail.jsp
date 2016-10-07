@@ -8,13 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.mpe.portal.web.resources.modules.ResMessage" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.mpe.portal.web.utils.WebText" %>
 <%
     ResMessage resMessage = (ResMessage) request.getAttribute("resMessage");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 %>
 <html>
 <head>
-    <title>反馈消息</title>
+    <title><%=WebText.WEB_TITLE%></title>
     <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
