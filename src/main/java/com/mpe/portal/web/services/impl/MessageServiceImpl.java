@@ -115,7 +115,7 @@ public class MessageServiceImpl implements IMessageService {
         if (Assert.isEmptyString(ids)) {
             return 0;
         }
-        return this.resMessageMapper.deleteByIds(ids);
+        return this.resMessageMapper.deleteByIds(ids.split(","));
     }
 
 

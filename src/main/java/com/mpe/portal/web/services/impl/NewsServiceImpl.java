@@ -47,7 +47,7 @@ public class NewsServiceImpl implements INewsService {
         if (Assert.isEmptyString(ids)) {
             return 0;
         }
-        return this.resNewsMapper.deleteByIds(ids);
+        return this.resNewsMapper.deleteByIds(ids.split(","));
     }
 
     @Override
@@ -98,5 +98,5 @@ public class NewsServiceImpl implements INewsService {
         }
         return new ArrayList<HashMap<String, String>>();
     }
-    
+
 }
