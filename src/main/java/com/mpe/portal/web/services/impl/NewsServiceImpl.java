@@ -98,4 +98,5 @@ public class NewsServiceImpl implements INewsService {
         }
         return new ArrayList<HashMap<String, String>>();
     }
+    
 }

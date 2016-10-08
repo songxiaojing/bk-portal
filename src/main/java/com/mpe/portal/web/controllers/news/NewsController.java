@@ -6,6 +6,9 @@ import com.mpe.portal.web.resources.modules.ResNews;
 import com.mpe.portal.web.services.INewsService;
 import com.mpe.portal.web.utils.Assert;
 import com.mpe.portal.web.utils.HttpContentType;
+import com.mpe.portal.web.utils.IOUtils;
+import com.mpe.portal.web.utils.UploadFile;
+import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,6 +60,7 @@ public class NewsController extends BaseController {
                 return "message";
             }
 
+
             Date currentDate = new Date();
             ResNews resNews = new ResNews();
             resNews.setCreateAt(currentDate);
@@ -67,13 +72,27 @@ public class NewsController extends BaseController {
             resNews.setNewTitle(newTitle);
             resNews.setNewCatagory(newCatagory);
             //
+            try {
+                MultiPartRequestWrapper mrequest = this.getMultiPartRequestWrapper(request);
 
+                HashMap<String, List<UploadFile>> uploadFileMap = this.getUploadFileMap(mrequest);
+                if (uploadFileMap.containsKey("newPicture")) {
+                    UploadFile uploadFile = uploadFileMap.get("newPicture").get(0);
+                    byte[] images = IOUtils.readInputStream2ByteArray(new FileInputStream(uploadFile.getFile()));
+                    if (images != null && images.length > 0) {
+                        resNews.setNewPicture(IOUtils.compress(images));
+                        resNews.setType(uploadFile.getFileName());
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             //
             int result = newsService.publishNews(resNews);
             if (result > 0) {
                 this.setForwardMessage("发布新闻成功");
             }
-            theLogger.info("Pushlish a news :" + newTitle);
+            theLogger.info("Publish a news :" + newTitle);
             return "message";
         } catch (Exception e) {
             throw e;
@@ -89,7 +108,7 @@ public class NewsController extends BaseController {
         JSONObject resultObj = new JSONObject();
         resultObj.put("message", "成功删除消息 " + result + " 条");
         this.pushBackToClient(HttpStatus.OK, HttpContentType.JSON, resultObj.toString());
-        
+
     }
 
     public void listTableData() throws Exception {

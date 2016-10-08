@@ -103,8 +103,8 @@ function buildDataTableColumnsByString(columnsJsonString) {
                     return resMessageFeedbackRender;
                 } else if (value == "resNewsDetailRender") {
                     return resNewsDetailRender;
-                } else if (value == "resCorporationDetailFormatter") {
-                    return resCorporationDetailFormatter;
+                } else if (value == "resNewsImageRender") {
+                    return resNewsImageRender;
                 } else if (value == "resCorporationGroupDetailFormatter") {
                     return resCorporationGroupDetailFormatter;
                 } else if (value == "resContactGroupDetailFormatter") {
@@ -589,21 +589,21 @@ function resNewsDetailRender(value, type, row, index) {
 }
 
 /**
- * 单位详细页查看
+ * 新闻图片
  *
  * @param value
  * @param type
  * @param row
  * @param index
  */
-function resCorporationDetailFormatter(value, type, row, index) {
+function resNewsImageRender(value, type, row, index) {
     var width = 1000; // 弹出窗口的宽度;
     var heigth = 600; // 弹出窗口的高度;
     var top = (window.screen.availHeight - 30 - heigth) / 2; // 获得窗口的垂直位置;
     var left = (window.screen.availWidth - 10 - width) / 2; // 获得窗口的水平位置;
     var windowParam = "height=" + heigth + ", width=" + width + ", top=" + top + ",left=" + left + ", toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no";
 
-    var url = basePath + "/resource/resourceView.detailView.action?className=" + className + "&id=" + row.id;
+    var url = basePath + "/news/newsView.showImage.action?id=" + row.id;
 
     return "<a href='javascript:void(0);' onclick=\"javascript:window.open('" + url + "', 'null', '" + windowParam + "');\">" + value + "</a>";
 }

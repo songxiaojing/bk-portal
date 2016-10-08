@@ -240,14 +240,4 @@
             #{ids}
         </foreach>
     </delete>
-
-    <select id="selectNewsBodyById" resultMap="BaseResultMap" parameterType="java.lang.Long">
-        select
-        <include refid="Blob_Column_List"/>
-        from RES_NEWS
-        <where>
-            ID=#{id}
-        </where>
-    </select>
-
 </mapper>

@@ -37,6 +37,4 @@ public interface ResNewsMapper {
     public int countByCondition(Map<String, Object> conditionMap);
 
     public int deleteByIds(String ids);
-
-    public ResNews selectNewsBodyById(long id);
 }

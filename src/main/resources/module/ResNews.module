@@ -62,6 +62,22 @@
       "validation": "required"
     },
     {
+          "fieldName": "type",
+          "fieldType": "java.lang.String",
+          "elementId": "type",
+          "showName": "新闻图片",
+          "showType": "text",
+          "size": 20,
+          "maxSize": 40,
+          "order": "005",
+          "referent": {},
+          "inList": true,
+          "tableFormatter": "resNewsImageRender",
+          "inSearch": true,
+          "inBatchUpdate": true,
+          "validation": "required"
+        },
+    {
       "fieldName": "publishAt",
       "fieldType": "java.util.Date",
       "elementId": "publishAt",

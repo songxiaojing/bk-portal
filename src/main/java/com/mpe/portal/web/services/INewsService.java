@@ -16,4 +16,5 @@ public interface INewsService {
     public long countByCondition(HashMap<String, String> paramsMap);
 
     public List<HashMap<String, String>> selectByCondition(HashMap<String, String> paramsMap);
+
 }

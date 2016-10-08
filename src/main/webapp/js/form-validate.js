@@ -486,3 +486,30 @@ function verifyRequiredElement(element) {
         return true;
     }
 }
+
+/**
+ * 判断是否符合上传文件要求
+ * @param upfile
+ * @param att
+ * @returns {boolean}
+ */
+function verifyＵploadfile(uploadFile, extName) {
+    // 检查上传文件
+    if (uploadFile == null || extName == null) {
+        return true;
+    }
+    var uploadName = uploadFile.value;
+    //var ext = "*.zip,*.ZIP";
+    if (uploadName == null || uploadName == "") {
+        return true;
+    }
+    if (uploadName.indexOf(".") == -1) {
+        return false;
+    }
+    uploadName = uploadName.substr(uploadName.lastIndexOf("."));
+    if (extName.indexOf(uploadName) == -1) {
+        return false;
+    } else {
+        return true;
+    }
+}

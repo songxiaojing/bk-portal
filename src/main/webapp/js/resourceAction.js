@@ -191,18 +191,7 @@ function removeResNews() {
  * 发布新闻
  */
 function resNewsPublish() {
-    try {
-        var rows = getSelectedRowData();
-
-        if (rows.length == 0 || rows.length > 1) {
-            $.messager.alert('提示信息', '请选择一条消息!', 'warning');
-            return;
-        } else {
-            showModalDialog("/news/newsView.publishResNews.action?id=" + rows[0].id, "发布新闻");
-        }
-    } catch (e) {
-        alert(e);
-    }
+    showModalDialog("/news/newsView.publishResNews.action", "发布新闻");
 }
 
 /**

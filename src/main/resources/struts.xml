@@ -100,7 +100,9 @@
         </global-exception-mappings>
         <action name="newsView.*" class="NewsView" method="{1}">
             <result name="list">/WEB-INF/jsp/center/resNewsList.jsp</result>
-            <result name="detail">/WEB-INF/jsp/center/resNewsDetail.jsp</result>
+            <result name="detail">/WEB-INF/jsp/center/news.jsp</result>
+            <result name="news">/WEB-INF/jsp/center/news.jsp</result>
+            <result name="publishResNews">/WEB-INF/jsp/center/publishNews.jsp</result>
         </action>
         <action name="news.*" class="NewsController" method="{1}">
         </action>

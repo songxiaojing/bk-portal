@@ -123,6 +123,7 @@ public abstract class BaseController {
             }
         }
     }
+    
 
     /**
      * 向客户端写信息 HTTP CODE 200.
@@ -147,11 +148,19 @@ public abstract class BaseController {
         return mwRequest;
     }
 
-    private void validateUploadFileSize(MultiPartRequestWrapper mwRequest) throws Exception {
+    /**
+     * 验证上传文件大小
+     *
+     * @param mwRequest
+     * @return
+     * @throws Exception
+     */
+    private boolean validateUploadFileSize(MultiPartRequestWrapper mwRequest) throws Exception {
 
         if (mwRequest != null && mwRequest.getErrors().size() > 0) {
-            throw new Exception("上传文件过大!");
+            return false;
         }
+        return true;
     }
 
     /**
