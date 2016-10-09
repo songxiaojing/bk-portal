@@ -1,3 +1,21 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.mpe.portal.web.resources.modules.ResNews" %>
+<%@ page import="com.mpe.portal.web.utils.Assert" %>
+<%@ page import="com.mpe.portal.web.utils.NewsUtil" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.List" %>
+<%
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    int shortBodyLen = 200;
+    int shortTitleLen = 20;
+    //int pageSize = (int) request.getAttribute("pageSize");
+    int pageNumber = (int) request.getAttribute("pageNumber");
+    int newsCounter = (int) request.getAttribute("newsCounter");
+    int paginationRange = (int) request.getAttribute("paginationRange");
+    List<ResNews> pageNewsList = (List<ResNews>) request.getAttribute("pageNewsList");
+
+
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -46,7 +64,7 @@
                         <ul class="nav navbar-nav">
                             <li><a href="/index.html">网站首页</a></li>
                             <li><a href="/about/about.html">关于我们</a></li>
-                            <li class="active"><a href="/news/news.html">新闻中心</a></li>
+                            <li class="active"><a href="/news/newsView.news.action">新闻中心</a></li>
                             <li><a href="/production/production.html">产品展示</a></li>
                             <li><a href="/service/service.html">服务支持</a></li>
                             <li><a href="/hr/hr.html">人力资源</a></li>
@@ -67,23 +85,42 @@
                 <div class="col-md-12 text-left">
                     <div class="panel panel-default">
                         <table class="table">
+                            <%
+                                if (pageNewsList != null && !pageNewsList.isEmpty()) {
+                                    for (ResNews rawNews : pageNewsList) {
+                            %>
                             <tr>
                                 <td>
                                     <div class="media">
-                                        <a class="pull-left" href="#">
-                                            <img data-src="holder.js/120x120/auto" alt="64x64"
+                                        <a class="pull-left" href="/news/newsView.detail.action?id=<%=rawNews.getId()%>" target="<%=rawNews.getId()%>">
+                                            <%if (Assert.isEmptyString(rawNews.getType())) {%>
+                                            <img data-src="holder.js/120x120/auto" alt="无图片"
                                                  src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2MDkzNzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg=="
                                                  data-holder-rendered="true" style="width: 120px; height: 120px;"
                                                  class="featurette-image img-responsive img-thumbnail">
+                                            <%} else {%>
+                                            <img src="/news/newsView.showImage.action?id=<%=rawNews.getId()%>"
+                                                 data-holder-rendered="true" style="width: 120px; height: 120px;"
+                                                 class="featurette-image img-responsive img-thumbnail" alt="<%=rawNews.getType()%>">
+                                            <%}%>
                                         </a>
                                         <div class="media-body">
-                                            <h4 class="media-heading">新闻消息－1</h4>
-                                            <h6>发布时间：2016-10-1</h6>
-                                            主要内容
+                                            <h4 class="media-heading"><a href="/news/newsView.detail.action?id=<%=rawNews.getId()%>"
+                                                                         target="<%=rawNews.getId()%>"><%=NewsUtil.getShortText(rawNews.getNewTitle(), shortTitleLen)%>
+                                            </a>
+                                            </h4>
+                                            <h6>发布时间：<%=simpleDateFormat.format(rawNews.getPublishAt())%>
+                                            </h6>
+                                            <%=NewsUtil.getShortText(rawNews.getNewBody(), shortBodyLen)%>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            <%
+                                    }
+                                }
+                            %>
+                            <!--
                             <tr>
                                 <td>
                                     <div class="media">
@@ -154,28 +191,29 @@
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr>-->
                         </table>
                     </div>
+                    <%if (newsCounter > 0) {%>
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <li>
-                                <a href="#" aria-label="Previous">
+                                <a href="/news/newsView.news.action?pageNumber=<%=pageNumber-1%>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
+                            <%for (int i = 0; i < paginationRange; i++) {%>
+                            <li class="<%=i==pageNumber?"active":""%>"><a href="/news/newsView.news.action?pageNumber=<%=i+1%>"><%=i + 1%>
+                            </a></li>
+                            <%}%>
                             <li>
-                                <a href="#" aria-label="Next">
+                                <a href="/news/newsView.news.action?pageNumber=<%=pageNumber+1%>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                         </ul>
                     </nav>
+                    <%}%>
                 </div>
             </div>
         </div>
@@ -203,8 +241,8 @@
                     <li>联系电话：0311-85111508</li>
                     <li>传真：0311-85111588</li>
                     <li>电子邮件：market@mpe.com.cn</li>
-                    <li>联系地址：河北省石家庄市裕华区万达广场写字楼A座5层</h4></li>
-                    <li>&copy; 2016 迈普润 <i class="fa fa-heart heart" alt="love"></i> 京ICP备88888888号</h5></li>
+                    <li>联系地址：河北省石家庄市裕华区万达广场写字楼A座5层</li>
+                    <li>&copy; 2016 迈普润 <i class="fa fa-heart heart" alt="love"></i> 京ICP备88888888号</li>
                 </ul>
             </div>
         </div>

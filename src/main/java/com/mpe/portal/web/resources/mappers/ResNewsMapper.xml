@@ -182,7 +182,7 @@
     <!-- 按条件查询-分页查询? @param Map 如果Map包含pageNo和pageSize 则就是条件分页查询,否则就是条件查询 -->
     <select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>,NEW_BODY
         from RES_NEWS
         <where>
             1=1
@@ -240,4 +240,8 @@
             #{ids}
         </foreach>
     </delete>
+    <!-- 按条件查询总数量 @param Map -->
+    <select id="countNews" resultType="int">
+        select count(ID) from RES_NEWS
+    </select>
 </mapper>

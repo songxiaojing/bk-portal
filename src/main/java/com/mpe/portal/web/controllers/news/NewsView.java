@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Scope("prototype")
@@ -29,6 +31,42 @@ public class NewsView extends BaseController {
     @Resource(name = "NewsServiceImpl")
     public void setService(INewsService service) {
         this.newsService = service;
+    }
+
+    /**
+     * 新闻列表页面
+     *
+     * @return
+     */
+    public String news() {
+
+        int pageSize = 20;
+        int pageNumber = 1;
+        HttpServletRequest request = this.getRequest();
+        //
+        if (!Assert.isEmptyString(request.getParameter("pageNumber"))) {
+            pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+        }
+
+        int newsCounter = this.newsService.countNews();
+        int paginationRange = (newsCounter + pageSize - 1) / pageSize;
+        if (pageNumber > paginationRange) {
+            pageNumber = 1;
+        }
+        List<ResNews> pageNewsList = null;
+        if (newsCounter > 0) {
+            pageNewsList = this.newsService.selectNewsByPageNumber(pageNumber, pageSize);
+        } else {
+            pageNewsList = new ArrayList<ResNews>();
+        }
+        //
+        request.setAttribute("pageNumber", pageNumber);
+        request.setAttribute("pageSize", pageSize);
+        request.setAttribute("paginationRange", paginationRange);
+        request.setAttribute("newsCounter", newsCounter);
+        request.setAttribute("pageNewsList", pageNewsList);
+
+        return "news";
     }
 
     public String list() {

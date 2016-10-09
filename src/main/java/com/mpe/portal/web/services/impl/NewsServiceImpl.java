@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by baiyanwei on 9/25/16.
@@ -97,6 +94,34 @@ public class NewsServiceImpl implements INewsService {
             theLogger.error("", e);
         }
         return new ArrayList<HashMap<String, String>>();
+    }
+
+    @Override
+    public List<ResNews> selectNewsByPageNumber(int targetPageNumber, int targetPageSize) {
+        try {
+
+            int pageNumber = targetPageNumber;
+            int pageSize = targetPageSize;
+            pageNumber = pageNumber - 1;
+            if (pageNumber < 0) {
+                pageNumber = 0;
+            }
+            //mysql row offset.
+            int rowOffset = pageNumber * pageSize;
+            Map<String, Object> paginationMap = new HashMap<String, Object>();
+            paginationMap.put("pageNo", rowOffset);
+            paginationMap.put("pageSize", pageSize);
+
+            return this.resNewsMapper.selectByCondition(paginationMap);
+        } catch (Exception e) {
+            theLogger.error("", e);
+        }
+        return new ArrayList<ResNews>();
+    }
+
+    @Override
+    public int countNews() {
+        return this.resNewsMapper.countNews();
     }
 
 }
