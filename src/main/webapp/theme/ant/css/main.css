@@ -1,0 +1,54 @@
+/**
+*
+*/
+p {
+    font-size: 15px;
+    line-height: 1.718em;
+    font-family: "HanHei SC", "PingHei", "PingFang SC", "STHeitiSC-Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.space {
+    height: 60px;
+    display: block;
+}
+
+.space-100 {
+    height: 100px;
+    display: block;
+    width: 100%;
+}
+
+.space-30 {
+    height: 30px;
+    display: block;
+}
+
+.section-gray {
+    padding: 10px 0;
+    background-color: #EEE;
+}
+
+.section-gray h5 {
+    margin: 0;
+    line-height: 40px;
+}
+
+.txt-white {
+    color: #FFFFFF;
+}
+
+.txt-gray {
+    color: #ddd !important;
+}
+
+body {
+    font-family: "HanHei SC", "PingHei", "PingFang SC", "STHeitiSC-Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    color: #56391b;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "HanHei SC", "PingHei", "PingFang SC", "STHeitiSC-Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}

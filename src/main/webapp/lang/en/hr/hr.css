@@ -1,0 +1,40 @@
+.download-client-title {
+    font-size: 34px;
+    font-weight: 500;
+}
+
+.IPone {
+    color: #000;
+}
+
+.Android {
+    color: #97c03d;
+}
+
+.MAC {
+    color: #7e23aa;
+}
+
+.Windows {
+    color: #0079d7;
+}
+
+.trading-client-download > li {
+    width: 200px;
+    padding-left: 20px;
+}
+
+.trading-client-download .btn-lg {
+    padding: 14px 20px;
+}
+
+.download-client-infor > li {
+    padding-bottom: 40px;
+}
+.download-main-show-pic{
+    padding-top: 120px;
+    padding-bottom: 20px;
+}
+.client-mid-image{
+    width: 140px;
+}
