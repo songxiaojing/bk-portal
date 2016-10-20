@@ -240,7 +240,7 @@
                     <li>河北迈普润光学物流运营有限公司</li>
                     <li>联系电话：0311-85111508</li>
                     <li>传真：0311-85111588</li>
-                    <li>电子邮件：market@mpe.com.cn</li>
+                    <li>电子邮件：hebeimpe@163.com</li>
                     <li>联系地址：河北省石家庄市裕华区万达广场写字楼A座5层</li>
                     <li>&copy; 2016 迈普润 <i class="fa fa-heart heart" alt="love"></i> 京ICP备88888888号</li>
                 </ul>
