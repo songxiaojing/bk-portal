@@ -12,7 +12,6 @@
     <link href="plugins/gsdk/bootstrap3/css/font-awesome.css" rel="stylesheet">
     <link href='plugins/gsdk/assets/css/googleapi-fonts.css' rel='stylesheet' type='text/css'>
     <!-- rotating card css-->
-    <link href='plugins/rotating_card/css/rotating-card.css' rel='stylesheet'/>
     <link href="theme/defaut/css/topMenu.css" rel="stylesheet" type="text/css">
     <link href="theme/defaut/css/foot.css" rel="stylesheet" type="text/css">
     <link href="theme/defaut/css/main.css" rel="stylesheet" type="text/css">
@@ -233,19 +232,7 @@
         </div>
         <div class="row">
             <div class="col-md-6 text-left">
-                <ul class="list-unstyled portal-news">
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">李克强历次出席东亚峰会向世界传递出什么信号?</a></li>
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">多家银行推房抵贷产品 银行评估称房价跌40%无损失</a></li>
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">8月份信贷规模或回升至7500亿元以上 房贷仍占大头</a></li>
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">李克强历次出席东亚峰会向世界传递出什么信号?</a></li>
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">多家银行推房抵贷产品 银行评估称房价跌40%无损失</a></li>
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">8月份信贷规模或回升至7500亿元以上 房贷仍占大头</a></li>
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">李克强历次出席东亚峰会向世界传递出什么信号?</a></li>
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">多家银行推房抵贷产品 银行评估称房价跌40%无损失</a></li>
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">8月份信贷规模或回升至7500亿元以上 房贷仍占大头</a></li>
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">多家银行推房抵贷产品 银行评估称房价跌40%无损失</a></li>
-                    <li><span>[2016-9-5]</span><a href="javascript:void(0)">8月份信贷规模或回升至7500亿元以上 房贷仍占大头</a></li>
-                </ul>
+                <ul class="list-unstyled portal-news" id="top10News"></ul>
             </div>
             <div class="col-md-6 text-left">
                 <div id="carousel-news">
@@ -419,6 +406,27 @@
             $(this).find('.shiji').slideDown(600);
         }, function () {
             $(this).find('.shiji').slideUp(400);
+        });
+//
+        $.ajax({
+            type: "POST",
+            url: "/news/newsView.newsTop10.action",
+            cache: false,
+            data: {},
+            dataType: "json",
+            success: function (data, textStatus) {
+                // <li><span>[2016-9-5]</span><a href="javascript:void(0)">李克强历次出席东亚峰会向世界传递出什么信号?</a></li>
+                var navListNode = document.getElementById("top10News");
+                for (var i = 0; i < data.length; i++) {
+                    // 创建NAV对象
+                    var navDataNode = document.createElement("LI");
+                    // 将NAV对象增加DIV中
+                    navListNode.appendChild(navDataNode);
+                    navDataNode.innerHTML = "<span>[" + data[i].date + "]</span><a target='_blank' href=\"/news/newsView.detail.action?id=" + data[i].id + "\">" + data[i].title + "</a>";
+                }
+
+
+            }
         });
     });
 </script>

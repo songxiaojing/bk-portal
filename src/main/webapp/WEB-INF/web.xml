@@ -51,7 +51,7 @@
         </init-param>
         <init-param>
             <param-name>notCheckServlets</param-name>
-            <param-value>/sigin.jsp,/application/login.action,/message/message.recordMessage.action,/news/newsView.news.action,/news/newsView.detail.action,/news/newsView.showImage.action</param-value>
+            <param-value>/sigin.jsp,/application/login.action,/message/message.recordMessage.action,/news/newsView.news.action,/news/newsView.detail.action,/news/newsView.showImage.action,/news/newsView.newsTop10.action</param-value>
         </init-param>
     </filter>
     <filter-mapping>

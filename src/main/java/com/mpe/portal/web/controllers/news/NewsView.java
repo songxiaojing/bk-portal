@@ -6,6 +6,8 @@ import com.mpe.portal.web.resources.modules.ResNews;
 import com.mpe.portal.web.services.INewsService;
 import com.mpe.portal.web.utils.Assert;
 import com.mpe.portal.web.utils.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +70,26 @@ public class NewsView extends BaseController {
         request.setAttribute("pageNewsList", pageNewsList);
 
         return "news";
+    }
+
+    public void newsTop10() throws Exception {
+        JSONArray newTop10Array = new JSONArray();
+
+        int pageSize = 10;
+        int pageNumber = 1;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        List<ResNews> pageNewsList = this.newsService.selectNewsByPageNumber(pageNumber, pageSize);
+        if (pageNewsList != null && pageNewsList.isEmpty() == false) {
+            for (ResNews news : pageNewsList) {
+                JSONObject newsObject = new JSONObject();
+                newsObject.put("id", news.getId());
+                newsObject.put("date", simpleDateFormat.format(news.getCreateAt()));
+                newsObject.put("title", news.getNewTitle());
+                newTop10Array.put(newsObject);
+            }
+
+        }
+        this.pushBackToClient(newTop10Array.toString());
     }
 
     public String list() {
